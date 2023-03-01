@@ -59,6 +59,11 @@
                 "input": "src/themes/dspace/styles/theme.scss",
                 "inject": false,
                 "bundleName": "dspace-theme"
+              },
+              {
+                "input": "src/themes/trico/styles/theme.scss",
+                "inject": false,
+                "bundleName": "trico-theme"
               }
             ],
             "scripts": [],
