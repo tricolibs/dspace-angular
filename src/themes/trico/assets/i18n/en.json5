@@ -1,7 +1,10 @@
 {
-  // DSpace default: "All of DSpace"
-  "menu.section.browse_global": "Browse DSpace",
+  // DSpace default: "All of Institutional Scholarship"
+  "menu.section.browse_global": "Browse Institutional Scholarship",
 
   // DSpace default: "DSpace Angular :: "
-  "repository.title.prefix": "DSpace :: ",
+  "repository.title.prefix": "Institutional Scholarship :: ",
+
+  // DSpace default: "Communities in DSpace"
+  "home.top-level-communities.head": "Communities in Institutional Scholarship",
 }
