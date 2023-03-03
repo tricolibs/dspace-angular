@@ -1,5 +1,10 @@
-rest:
-  ssl: true
-  host: api7.dspace.org
-  port: 443
-  nameSpace: /server
+themes:
+  - name: "trico"
+    extends: BASE_THEME_NAME
+    headTags:
+      # Insert <link rel="icon" href="assets/trico/images/favicons/favicon.ico" sizes="any"/> into the <head> of the page.
+      - tagName: link
+        attributes:
+          rel: icon
+          href: assets/trico/images/favicons/favicon.ico
+          sizes: any

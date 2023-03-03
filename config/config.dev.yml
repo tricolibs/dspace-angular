@@ -1,0 +1,14 @@
+production: false
+
+ui:
+  ssl: false
+  host: dspace-dev.local
+  port: 44000
+  nameSpace: "/"
+
+rest:
+  ssl: false
+  host: dspace-dev.local
+  port: 48080
+  nameSpace: "/server"
+
