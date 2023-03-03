@@ -6,8 +6,6 @@
 
   "401.unauthorized": "unauthorized",
 
-
-
   "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
 
   "403.link.home-page": "Take me to the home page",
@@ -19,7 +17,6 @@
   "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
 
   "500.link.home-page": "Take me to the home page",
-
 
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
@@ -1571,7 +1568,7 @@
 
   "footer.link.end-user-agreement": "End User Agreement",
 
-  "footer.link.feedback": "Send Feedback",
+  "footer.link.feedback": "Feedback / Contact Us",
 
   "forgot-email.form.header": "Forgot Password",
 
@@ -1769,7 +1766,7 @@
 
   "home.title": "Home",
 
-  "home.top-level-communities.head": "Communities in DSpace",
+  "home.top-level-communities.head": "Communities in Institutional Scholarship",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
 
@@ -1795,13 +1792,13 @@
 
   "info.privacy.title": "Privacy Statement",
 
-  "info.feedback.breadcrumbs": "Feedback",
+  "info.feedback.breadcrumbs": "Feedback / Contact Us",
 
-  "info.feedback.head": "Feedback",
+  "info.feedback.head": "Feedback / Contact Us",
 
-  "info.feedback.title": "Feedback",
+  "info.feedback.title": "Feedback / Contact Us",
 
-  "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+  "info.feedback.info": "Thanks for contacting us about Institutional Scholarship. We welcome questions and feedback. You may also contact us directly at scholarship.tricolib@brynmawr.edu.",
 
   "info.feedback.email_help": "This address will be used to follow up on your feedback.",
 
@@ -5060,4 +5057,12 @@
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
 
   "admin.system-wide-alert.title": "System-wide Alerts",
+
+  "footer.link.bmc-tripod": "Tripod: The TriCollege Library Catalog",
+
+  "footer.link.bmc-library": "Bryn Mawr Library",
+
+  "footer.link.hc-libraries": "Haverford Libraries",
+
+  "footer.link.sc-libraries": "Swarthmore Libraries",
 }
