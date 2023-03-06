@@ -34,4 +34,10 @@
 
   // DSpace default: "Send Feedback"
   "footer.link.feedback": "Feedback / Contact Us",
+
+  //Shibboleth login
+  "login.form.shibboleth": "Haverford College users",
+
+  //Standard login
+  "login.form.submit": "Bryn Mawr College, Swarthmore College, and non Trico users"
 }
