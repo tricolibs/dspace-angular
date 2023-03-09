@@ -6,7 +6,7 @@ import { HeaderComponent as BaseComponent } from '../../../../app/header/header.
  */
 @Component({
   selector: 'ds-header',
-  // styleUrls: ['header.component.scss'],
+  //styleUrls: ['header.component.scss'],
   styleUrls: ['../../../../app/header/header.component.scss'],
   templateUrl: 'header.component.html',
   //templateUrl: '../../../../app/header/header.component.html',
