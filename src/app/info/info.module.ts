@@ -12,6 +12,9 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
+import { AboutComponent } from './about/about.component';
+import { AboutContentComponent } from './about/about-content/about-content.component';
+import { ThemedAboutComponent } from './about/themed-about.component';
 
 
 const DECLARATIONS = [
@@ -23,7 +26,10 @@ const DECLARATIONS = [
   ThemedPrivacyComponent,
   FeedbackComponent,
   FeedbackFormComponent,
-  ThemedFeedbackComponent
+  ThemedFeedbackComponent,
+  AboutComponent,
+  AboutContentComponent,
+  ThemedAboutComponent
 ];
 
 @NgModule({
