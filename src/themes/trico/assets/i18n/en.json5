@@ -43,4 +43,7 @@
 
   // About breadcrumb
   "info.about.breadcrumbs": "About Us",
+
+  // About us link 
+  "footer.link.about": "About Us"
 }
