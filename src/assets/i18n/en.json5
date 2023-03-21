@@ -2688,7 +2688,7 @@
 
   "login.form.new-user": "New user? Click here to register.",
 
-  "login.form.or-divider": "or",
+  "login.form.or-divider": "Bryn Mawr College, Swarthmore College, and non-Trico users login below:",
 
   "login.form.oidc": "Log in with OIDC",
 
@@ -2696,9 +2696,9 @@
 
   "login.form.password": "Password",
 
-  "login.form.shibboleth": "Haverford College users",
+  "login.form.shibboleth": "Haverford College users click here",
 
-  "login.form.submit": "Bryn Mawr College, Swarthmore College, and non Trico users",
+  "login.form.submit": "Login",
 
   "login.title": "Login",
 

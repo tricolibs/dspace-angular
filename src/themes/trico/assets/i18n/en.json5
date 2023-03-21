@@ -36,14 +36,17 @@
   "footer.link.feedback": "Feedback / Contact Us",
 
   //Shibboleth login
-  "login.form.shibboleth": "Haverford College users",
+  "login.form.shibboleth": "Haverford College users click here",
 
   //Standard login
-  "login.form.submit": "Bryn Mawr College, Swarthmore College, and non Trico users",
+  "login.form.submit": "Login",
+
+  //Login form divider
+  "login.form.or-divider": "Bryn Mawr College, Swarthmore College, and non-Trico users login below:",
 
   // About breadcrumb
   "info.about.breadcrumbs": "About Us",
 
-  // About us link 
+  // About us link
   "footer.link.about": "About Us"
 }

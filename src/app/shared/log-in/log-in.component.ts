@@ -67,7 +67,9 @@ export class LogInComponent implements OnInit {
       select(getAuthenticationMethods),
     ).subscribe(methods => {
       // ignore the ip authentication method when it's returned by the backend
-      this.authMethods = methods.filter(a => a.authMethodType !== AuthMethodType.Ip);
+      // The reverse statement here is a crude way to get the Haverford Shibboleth link
+      // first. The order we put them in the config file doesn't seem to matter.
+      this.authMethods = methods.filter(a => a.authMethodType !== AuthMethodType.Ip).reverse();
     });
 
     // set loading
