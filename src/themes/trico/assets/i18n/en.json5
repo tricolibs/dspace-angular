@@ -153,5 +153,8 @@
   "item.page.identifier.tripod": "Tripod URL",
 
   // Item page identifier
-  "item.page.identifier": "Identifier"
+  "item.page.identifier": "Identifier",
+
+  // DSpace Default: "URI"
+  "item.page.uri": "Permanent URL"
 }

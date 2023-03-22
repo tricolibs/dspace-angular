@@ -2348,7 +2348,7 @@
 
   "item.page.subject": "Keywords",
 
-  "item.page.uri": "URI",
+  "item.page.uri": "Permanent URL",
 
   "item.page.bitstreams.view-more": "Show more",
 
@@ -5069,4 +5069,76 @@
   "info.about.breadcrumbs": "About Us",
 
   "footer.link.about": "About Us",
+
+  "item.page.contributor.producer": "Producer",
+
+  "item.page.contributor.director": "Director",
+
+  "item.page.contributor.performer": "Performer",
+
+  "item.page.contributor.choreographer": "Choreographer",
+
+  "item.page.contributor.costume": "Costume Designer",
+
+  "item.page.contributor.music": "Music",
+
+  "item.page.contributor.videographer": "Videographer",
+
+  "item.page.contributor.lighting": "Lighting Designer",
+
+  "item.page.contributor.sound": "Sound Designer",
+
+  "item.page.contributor.setdesign": "Set Designer",
+
+  "item.page.contributor.stagecrew": "Crew Member",
+
+  "item.page.contributor.funder": "Funder",
+
+  "item.page.contributor.rehearsaldirector": "Rehearsal Director",
+
+  "item.page.contributor.concertcoordinator": "Concert Coordinator",
+
+  "item.page.contributor.advisor": "Advisor",
+
+  "item.page.contributor.moderator": "Moderator",
+
+  "item.page.contributor.panelist": "Panelist",
+
+  "item.page.title.alternative": "Alternative Title",
+
+  "item.page.sponsorship": "Department",
+
+  "item.page.type": "Type",
+
+  "item.page.format.medium": "Original Format",
+
+  "item.page.format.extent": "Running Time",
+
+  "item.page.format": "File Format",
+
+  "item.page.coverage.spatial": "Place of Publication",
+
+  "item.page.coverage.temporal": "Date Span",
+
+  "item.page.date.copyright": "Copyright Date",
+
+  "item.page.description.award": "Award",
+
+  "item.page.language.iso": "Language",
+
+  "item.page.description.note": "Note",
+
+  "item.page.description.tableofcontents": "Table of Contents",
+
+  "item.page.rights": "Terms of Use",
+
+  "item.page.rights.holder": "Rights Holder",
+
+  "item.page.rights.access": "Access Restrictions",
+
+  "item.page.rights.uri": "Terms of Use",
+
+  "item.page.identifier.tripod": "Tripod URL",
+
+  "item.page.identifier": "Identifier",
 }
