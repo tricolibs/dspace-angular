@@ -45,5 +45,113 @@
   "info.about.breadcrumbs": "About Us",
 
   // About us link 
-  "footer.link.about": "About Us"
+  "footer.link.about": "About Us",
+
+  // Item page producer
+  "item.page.contributor.producer": "Producer",
+
+  // Item page director
+  "item.page.contributor.director": "Director",
+
+  // Item page performer
+  "item.page.contributor.performer": "Performer",
+
+  // Item page choreographer
+  "item.page.contributor.choreographer": "Choreographer",
+
+  // Item page costume designer
+  "item.page.contributor.costume": "Costume Designer",
+
+  // Item page music
+  "item.page.contributor.music": "Music",
+
+  // Item page videographer
+  "item.page.contributor.videographer": "Videographer",
+
+  // Item page lighting designer
+  "item.page.contributor.lighting": "Lighting Designer",
+
+  // Item page sound designer
+  "item.page.contributor.sound": "Sound Designer",
+
+  // Item page set designer
+  "item.page.contributor.setdesign": "Set Designer",
+
+  // Item page crew member
+  "item.page.contributor.stagecrew": "Crew Member",
+
+  // Item page funder
+  "item.page.contributor.funder": "Funder",
+
+  // Item page rehearsal director
+  "item.page.contributor.rehearsaldirector": "Rehearsal Director",
+
+  // Item page concert coordinator
+  "item.page.contributor.concertcoordinator": "Concert Coordinator",
+
+  // Item page advisor
+  "item.page.contributor.advisor": "Advisor",
+
+  // Item page moderator
+  "item.page.contributor.moderator": "Moderator",
+
+  // Item page panelist
+  "item.page.contributor.panelist": "Panelist",
+
+  // Item page alternative title
+  "item.page.title.alternative": "Alternative Title",
+
+  // Item page sponsorship
+  "item.page.sponsorship": "Department",
+
+  // Item page type 
+  "item.page.type": "Type",
+
+  // Item page format medium
+  "item.page.format.medium": "Original Format",
+
+  // Item page format extent
+  "item.page.format.extent": "Running Time",
+
+  // Item page format
+  "item.page.format": "File Format",
+
+  // Item page coverage spatial
+  "item.page.coverage.spatial": "Place of Publication",
+
+  // Item page coverage temporal
+  "item.page.coverage.temporal": "Date Span",
+
+  // Item page copyright date
+  "item.page.date.copyright": "Copyright Date",
+
+  // Item page award
+  "item.page.description.award": "Award",
+
+  // Item page language iso 
+  "item.page.language.iso": "Language",
+
+  // Item page note 
+  "item.page.description.note": "Note",
+
+  // Item page table of contents
+  "item.page.description.tableofcontents": "Table of Contents",
+
+  // Item page rights
+  "item.page.rights": "Terms of Use",
+
+  // Item page rights holder
+  "item.page.rights.holder": "Rights Holder",
+
+  // Item page rights access
+  "item.page.rights.access": "Access Restrictions",
+
+  // Item page rights uri
+  "item.page.rights.uri": "Terms of Use",
+
+  // Item page tripod url
+  "item.page.identifier.tripod": "Tripod URL",
+
+  // Item page identifier
+  "item.page.identifier": "Identifier"
 }
