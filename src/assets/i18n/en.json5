@@ -2346,7 +2346,7 @@
 
   "item.page.relationships.isOrgUnitOfProject": "Research Projects",
 
-  "item.page.subject": "Keywords",
+  "item.page.subject": "Subjects",
 
   "item.page.uri": "Permanent URL",
 
@@ -5141,4 +5141,6 @@
   "item.page.identifier.tripod": "Tripod URL",
 
   "item.page.identifier": "Identifier",
+
+  "item.page.contributor.production": "Production",
 }

@@ -156,5 +156,11 @@
   "item.page.identifier": "Identifier",
 
   // DSpace Default: "URI"
-  "item.page.uri": "Permanent URL"
+  "item.page.uri": "Permanent URL",
+
+  // Item page production contributors
+  "item.page.contributor.production": "Production",
+
+  // DSpace Default: "Keywords"
+  "item.page.subject": "Subjects"
 }

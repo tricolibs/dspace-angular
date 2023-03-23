@@ -60,6 +60,48 @@
       [fields]="['dc.contributor.performer']"
       [label]="'item.page.contributor.performer'">
     </ds-generic-item-page-field>
+
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.choreographer']"
+      [label]="'item.page.contributor.choreographer'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.costume']"
+      [label]="'item.page.contributor.costume'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.music']"
+      [label]="'item.page.contributor.music'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.videographer']"
+      [label]="'item.page.contributor.videographer'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.lighting']"
+      [label]="'item.page.contributor.lighting'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.setdesign']"
+      [label]="'item.page.contributor.setdesign'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.stagecrew']"
+      [label]="'item.page.contributor.stagecrew'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.funder']"
+      [label]="'item.page.contributor.funder'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.rehearsaldirector']"
+      [label]="'item.page.contributor.rehearsaldirector'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.contributor.concertcoordinator']"
+      [label]="'item.page.contributor.concertcoordinator'">
+    </ds-generic-item-page-field>
+    
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.contributor.advisor']"
       [label]="'item.page.contributor.advisor'">
@@ -162,10 +204,11 @@
     </ds-generic-item-page-field>
 
     <ds-generic-item-page-field [item]="object"
-      [fields]="['dc.subject']"
-      [separator]="', '"
+      [fields]="['dc.subject', 'dc.subject.lcsh', 'dc.subject.aat', 'dc.subject.lcgft', 'dc.subject.mesh', 'dc.subject.other']"
+      [separator]="'<br />'"
       [label]="'item.page.subject'">
     </ds-generic-item-page-field>
+  
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.identifier.citation']"
       [label]="'item.page.citation'">
