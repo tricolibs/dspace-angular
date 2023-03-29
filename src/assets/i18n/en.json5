@@ -5153,4 +5153,8 @@
   "item.page.subject.lcgft": "Genre",
 
   "item.page.relation.isbasedon": "Based On",
+
+  "item.page.contributor.host": "Host",
+
+  "item.page.contributor.interviewee": "Interviewee",
 }

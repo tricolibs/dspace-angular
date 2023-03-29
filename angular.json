@@ -69,6 +69,11 @@
                 "input": "src/themes/fmst/styles/theme.scss",
                 "inject": false,
                 "bundleName": "fmst-theme"
+              },
+              {
+                "input": "src/themes/wnr/styles/theme.scss",
+                "inject": false,
+                "bundleName": "wnr-theme"
               }
             ],
             "scripts": [],

@@ -3,6 +3,10 @@ themes:
     extends: trico
     handle: '10066/9239'
   
+  - name: wnr
+    extends: trico
+    handle: '10066/10922'
+    
   - name: trico
     extends: BASE_THEME_NAME
     headTags:

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 // import { EagerThemeModule as CustomEagerThemeModule } from './custom/eager-theme.module';
 import { EagerThemeModule as TricoEagerThemeModule } from './trico/eager-theme.module';
 import { EagerThemeModule as FmstEagerThemeModule } from './fmst/eager-theme.module';
+import { EagerThemeModule as WnrEagerThemeModule } from './wnr/eager-theme.module';
 
 /**
  * This module bundles the eager theme modules for all available themes.
@@ -17,6 +18,7 @@ import { EagerThemeModule as FmstEagerThemeModule } from './fmst/eager-theme.mod
     // CustomEagerThemeModule,
     TricoEagerThemeModule,
     FmstEagerThemeModule,
+    WnrEagerThemeModule,
   ],
 })
 export class EagerThemesModule {

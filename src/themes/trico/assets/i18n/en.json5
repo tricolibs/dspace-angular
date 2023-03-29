@@ -179,6 +179,13 @@
   // Item page relation is based on 
   "item.page.relation.isbasedon": "Based On",
 
+  // Item page host
+  "item.page.contributor.host": "Host",
+
+  // Item page interviewee
+  "item.page.contributor.interviewee": "Interviewee",
+
   // DSpace Default: "Keywords"
   "item.page.subject": "Subjects"
+
 }
