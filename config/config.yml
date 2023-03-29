@@ -1,10 +1,14 @@
 themes:
-  - name: "trico"
+  - name: fmst
+    extends: trico
+    handle: '10066/9239'
+  
+  - name: trico
     extends: BASE_THEME_NAME
     headTags:
       # Insert <link rel="icon" href="assets/trico/images/favicons/favicon.ico" sizes="any"/> into the <head> of the page.
-      - tagName: link
-        attributes:
-          rel: icon
-          href: assets/trico/images/favicons/favicon.ico
-          sizes: any
+    - tagName: link
+      attributes:
+        rel: icon
+        href: assets/trico/images/favicons/favicon.ico
+        sizes: any

@@ -5143,4 +5143,14 @@
   "item.page.identifier": "Identifier",
 
   "item.page.contributor.production": "Production",
+
+  "item.page.description.contents": "Contents",
+
+  "item.page.contributor.editor": "Editor",
+
+  "item.page.coverage.venue": "Venue of Performance",
+
+  "item.page.subject.lcgft": "Genre",
+
+  "item.page.relation.isbasedon": "Based On",
 }

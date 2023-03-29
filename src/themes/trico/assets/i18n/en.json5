@@ -164,6 +164,21 @@
   // Item page production contributors
   "item.page.contributor.production": "Production",
 
+  // Item page contents
+  "item.page.description.contents": "Contents",
+
+  // Item page editor
+  "item.page.contributor.editor": "Editor",
+
+  // Item page venue
+  "item.page.coverage.venue": "Venue of Performance",
+
+  // Item page genre
+  "item.page.subject.lcgft": "Genre",
+
+  // Item page relation is based on 
+  "item.page.relation.isbasedon": "Based On",
+
   // DSpace Default: "Keywords"
   "item.page.subject": "Subjects"
 }
