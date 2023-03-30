@@ -74,6 +74,11 @@
                 "input": "src/themes/wnr/styles/theme.scss",
                 "inject": false,
                 "bundleName": "wnr-theme"
+              },
+              {
+                "input": "src/themes/music/styles/theme.scss",
+                "inject": false,
+                "bundleName": "music-theme"
               }
             ],
             "scripts": [],

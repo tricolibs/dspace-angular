@@ -185,7 +185,23 @@
   // Item page interviewee
   "item.page.contributor.interviewee": "Interviewee",
 
+  // Item page composer
+  "item.page.contributor.composer": "Composer",
+
+  // Item page arranger
+  "item.page.contributor.arranger": "Arranger",
+
+  // Item page stage director
+  "item.page.contributor.stagedirector": "Stage Manager",
+
+  // Item page production contributors
+  "item.page.production": "Production",
+
+  // Item page music spatial
+  "item.page.music.coverage.spatial": "Location",
+
   // DSpace Default: "Keywords"
   "item.page.subject": "Subjects"
+
 
 }

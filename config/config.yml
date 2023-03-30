@@ -6,6 +6,10 @@ themes:
   - name: wnr
     extends: trico
     handle: '10066/10922'
+  
+  - name: music
+    extends: trico
+    handle: '10066/11815'
     
   - name: trico
     extends: BASE_THEME_NAME

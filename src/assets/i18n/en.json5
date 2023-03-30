@@ -5157,4 +5157,14 @@
   "item.page.contributor.host": "Host",
 
   "item.page.contributor.interviewee": "Interviewee",
+
+  "item.page.contributor.composer": "Composer",
+
+  "item.page.contributor.arranger": "Arranger",
+
+  "item.page.contributor.stagedirector": "Stage Manager",
+
+  "item.page.production": "Production",
+
+  "item.page.music.coverage.spatial": "Location",
 }

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { EagerThemeModule as TricoEagerThemeModule } from './trico/eager-theme.module';
 import { EagerThemeModule as FmstEagerThemeModule } from './fmst/eager-theme.module';
 import { EagerThemeModule as WnrEagerThemeModule } from './wnr/eager-theme.module';
+import { EagerThemeModule as MusicEagerThemeModule } from './music/eager-theme.module';
 
 /**
  * This module bundles the eager theme modules for all available themes.
@@ -19,6 +20,7 @@ import { EagerThemeModule as WnrEagerThemeModule } from './wnr/eager-theme.modul
     TricoEagerThemeModule,
     FmstEagerThemeModule,
     WnrEagerThemeModule,
+    MusicEagerThemeModule,
   ],
 })
 export class EagerThemesModule {
