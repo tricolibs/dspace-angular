@@ -6,6 +6,7 @@ import { EagerThemeModule as FmstEagerThemeModule } from './fmst/eager-theme.mod
 import { EagerThemeModule as WnrEagerThemeModule } from './wnr/eager-theme.module';
 import { EagerThemeModule as MusicEagerThemeModule } from './music/eager-theme.module';
 import { EagerThemeModule as SnccEagerThemeModule } from './sncc/eager-theme.module';
+import { EagerThemeModule as FolkMusicEagerThemeModule } from './folk-music/eager-theme.module';
 
 /**
  * This module bundles the eager theme modules for all available themes.
@@ -23,6 +24,7 @@ import { EagerThemeModule as SnccEagerThemeModule } from './sncc/eager-theme.mod
     WnrEagerThemeModule,
     MusicEagerThemeModule,
     SnccEagerThemeModule,
+    FolkMusicEagerThemeModule,
   ],
 })
 export class EagerThemesModule {

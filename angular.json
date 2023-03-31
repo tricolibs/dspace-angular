@@ -84,6 +84,11 @@
                 "input": "src/themes/sncc/styles/theme.scss",
                 "inject": false,
                 "bundleName": "sncc-theme"
+              },
+              {
+                "input": "src/themes/folk-music/styles/theme.scss",
+                "inject": false,
+                "bundleName": "folk-music-theme"
               }
             ],
             "scripts": [],

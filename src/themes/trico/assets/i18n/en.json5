@@ -128,6 +128,9 @@
   // Item page copyright date
   "item.page.date.copyright": "Copyright Date",
 
+  // Item page date created
+  "item.page.date.create": "Date Created",
+
   // Item page award
   "item.page.description.award": "Award",
 
