@@ -10,6 +10,10 @@ themes:
   - name: music
     extends: trico
     handle: '10066/11815'
+  
+  - name: sncc
+    extends: trico
+    handle: '10066/10732'
     
   - name: trico
     extends: BASE_THEME_NAME

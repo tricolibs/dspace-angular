@@ -79,6 +79,11 @@
                 "input": "src/themes/music/styles/theme.scss",
                 "inject": false,
                 "bundleName": "music-theme"
+              },
+              {
+                "input": "src/themes/sncc/styles/theme.scss",
+                "inject": false,
+                "bundleName": "sncc-theme"
               }
             ],
             "scripts": [],

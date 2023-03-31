@@ -185,6 +185,9 @@
   // Item page interviewee
   "item.page.contributor.interviewee": "Interviewee",
 
+  // Item page interviewer
+  "item.page.contributor.interviewer": "Interviewer",
+
   // Item page composer
   "item.page.contributor.composer": "Composer",
 
