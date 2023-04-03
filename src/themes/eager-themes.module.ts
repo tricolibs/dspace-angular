@@ -7,6 +7,7 @@ import { EagerThemeModule as WnrEagerThemeModule } from './wnr/eager-theme.modul
 import { EagerThemeModule as MusicEagerThemeModule } from './music/eager-theme.module';
 import { EagerThemeModule as SnccEagerThemeModule } from './sncc/eager-theme.module';
 import { EagerThemeModule as FolkMusicEagerThemeModule } from './folk-music/eager-theme.module';
+import { EagerThemeModule as DanceEagerThemeModule } from './dance/eager-theme.module';
 
 /**
  * This module bundles the eager theme modules for all available themes.
@@ -25,6 +26,7 @@ import { EagerThemeModule as FolkMusicEagerThemeModule } from './folk-music/eage
     MusicEagerThemeModule,
     SnccEagerThemeModule,
     FolkMusicEagerThemeModule,
+    DanceEagerThemeModule,
   ],
 })
 export class EagerThemesModule {

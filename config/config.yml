@@ -14,6 +14,10 @@ themes:
   - name: sncc
     extends: trico
     handle: '10066/10732'
+
+  - name: dance
+    extends: trico
+    handle: '10066/11814'
   
   - name: folk-music
     extends: trico

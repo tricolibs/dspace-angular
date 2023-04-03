@@ -89,6 +89,11 @@
                 "input": "src/themes/folk-music/styles/theme.scss",
                 "inject": false,
                 "bundleName": "folk-music-theme"
+              },
+              {
+                "input": "src/themes/dance/styles/theme.scss",
+                "inject": false,
+                "bundleName": "dance-theme"
               }
             ],
             "scripts": [],
