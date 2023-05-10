@@ -1,3 +1,4 @@
 <ds-themed-root
+  [ngStyle]=" isServer ? {'display' : 'none'} : {} "
   [shouldShowFullscreenLoader]="(isAuthBlocking$ | async) || (isThemeLoading$ | async)"
   [shouldShowRouteLoader]="isRouteLoading$ | async"></ds-themed-root>

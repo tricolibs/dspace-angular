@@ -1,5 +1,5 @@
 import { distinctUntilChanged, take, withLatestFrom } from 'rxjs/operators';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -62,6 +62,11 @@ export class AppComponent implements OnInit, AfterViewInit {
    */
   idleModalOpen: boolean;
 
+  /**
+   * Whether the page is being rendered server side or browser side
+   */
+  isServer: boolean;
+
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     @Inject(DOCUMENT) private document: any,
@@ -87,6 +92,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isThemeLoading$ = this.themeService.isThemeLoading$;
 
     this.storeCSSVariables();
+
+    this.isServer = isPlatformServer(this.platformId);
   }
 
   ngOnInit() {
