@@ -32,6 +32,11 @@ themes:
         rel: icon
         href: assets/trico/images/favicons/favicon.ico
         sizes: any
+      # Insert <meta name="google-site-verification" content="sGZMSDr0bJckSEJruIiCPb17ySLhsXoBsFaIpXsodx4" /> ino the <head> of the page
+    - tagName: meta
+      attributes:
+        name: google-site-verification
+        content: sGZMSDr0bJckSEJruIiCPb17ySLhsXoBsFaIpXsodx4
 
 # Whether the end user agreement is required before users use the repository.
 # If enabled, the user will be required to accept the agreement before they can use the repository.
