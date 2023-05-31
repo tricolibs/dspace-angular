@@ -30,7 +30,7 @@ themes:
     - tagName: link
       attributes:
         rel: icon
-        href: assets/trico/images/favicons/favicon.ico
+        href: assets/trico/images/favicons/favicon.svg
         sizes: any
       # Insert <meta name="google-site-verification" content="sGZMSDr0bJckSEJruIiCPb17ySLhsXoBsFaIpXsodx4" /> ino the <head> of the page
     - tagName: meta
