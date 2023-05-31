@@ -5,6 +5,9 @@
 	  max-height: var(--ds-header-logo-height-xs);
 	}
   }
+  .navbar-brand {
+	margin-right: .5rem;
+  }
   
   .navbar-toggler .navbar-toggler-icon {
 	background-image: none !important;
@@ -20,9 +23,15 @@
 	  }
 	}
   }
+  .logo {
+	float: left;
+	padding-bottom: .2rem;
+}
 .logo-text {
-	padding-left: 5px;
 	color: #05538a;
+	font-size: 1.25rem;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	line-height: 1.5rem;
 	@media only screen and (max-width: map-get($grid-breakpoints, sm)) {
 		display: none;
 	}
