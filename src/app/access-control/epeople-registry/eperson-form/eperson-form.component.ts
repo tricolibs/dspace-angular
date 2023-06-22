@@ -151,7 +151,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'gem',
-    pageSize: 5,
+    pageSize: 10,
     currentPage: 1
   });
 
