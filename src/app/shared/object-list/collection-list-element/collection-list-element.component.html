@@ -1,9 +1,12 @@
 <a *ngIf="linkType != linkTypes.None" [href]="['/collections/' + object.id]" class="lead">
-    {{object.name}}
+  {{ object.name }}
 </a>
 <span *ngIf="linkType == linkTypes.None" class="lead">
-    {{object.name}}
+    {{ object.name }}
 </span>
+<span class="pr-2">&nbsp;</span>
+<span *ngIf="object.archivedItemsCount >= 0"
+      class="badge badge-pill badge-secondary align-self-center archived-items-lead">{{ object.archivedItemsCount }}</span>
 <div *ngIf="object.shortDescription" class="text-muted abstract-text">
-    {{object.shortDescription}}
+  {{ object.shortDescription }}
 </div>

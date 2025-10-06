@@ -220,6 +220,22 @@
 
   "admin.registries.schema.title": "Metadata Schema Registry",
 
+  "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+
+  "administrativeBulkAccess.search.results.head": "Search Results",
+
+  "admin.access-control.bulk-access": "Bulk Access Management",
+
+  "admin.access-control.bulk-access.title": "Bulk Access Management",
+
+  "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+
+  "admin.access-control.bulk-access-browse.search.header": "Search",
+
+  "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+
+  "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+
   "admin.access-control.epeople.actions.delete": "Delete EPerson",
 
   "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
@@ -552,6 +568,8 @@
 
   "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
 
+  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+
   "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
 
   "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
@@ -568,7 +586,15 @@
 
   "admin.metadata-import.page.error.addFile": "Select file first!",
 
+  "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+
   "admin.batch-import.page.error.addFile": "Select Zip file first!",
+
+  "admin.metadata-import.page.toggle.upload": "Upload",
+
+  "admin.metadata-import.page.toggle.url": "URL",
+
+  "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
 
   "admin.metadata-import.page.validateOnly": "Validate Only",
 
@@ -684,6 +710,8 @@
 
   "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
 
+  "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream",
+
   "bitstream.edit.form.iiifLabel.label": "IIIF Label",
 
   "bitstream.edit.form.iiifLabel.hint": "Canvas label for this image. If not provided default label will be used.",
@@ -752,6 +780,8 @@
 
   "browse.comcol.by.subject": "By Subject",
 
+  "browse.comcol.by.srsc": "By Subject Category",
+
   "browse.comcol.by.title": "By Title",
 
   "browse.comcol.head": "Browse",
@@ -771,6 +801,8 @@
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
 
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+
+  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -825,6 +857,10 @@
   "browse.startsWith.type_date.label": "Or type in a date (year-month) and click on the Browse button",
 
   "browse.startsWith.type_text": "Filter results by typing the first few letters",
+
+  "browse.startsWith.input": "Filter",
+
+  "browse.taxonomy.button": "Browse",
 
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
 
@@ -929,6 +965,10 @@
   "collection.edit.notifications.success": "Successfully edited the Collection",
 
   "collection.edit.return": "Back",
+
+  "collection.edit.tabs.access-control.head": "Access Control",
+
+  "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
 
   "collection.edit.tabs.curate.head": "Curate",
 
@@ -1166,6 +1206,10 @@
 
   "community.edit.tabs.curate.title": "Community Edit - Curate",
 
+  "community.edit.tabs.access-control.head": "Access Control",
+
+  "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+
   "community.edit.tabs.metadata.head": "Edit Metadata",
 
   "community.edit.tabs.metadata.title": "Community Edit - Metadata",
@@ -1382,6 +1426,8 @@
 
   "dso.name.untitled": "Untitled",
 
+  "dso.name.unnamed": "Unnamed",
+
   "dso-selector.create.collection.head": "New collection",
 
   "dso-selector.create.collection.sub-level": "Create a new collection in",
@@ -1552,6 +1598,20 @@
 
   "error.validation.groupExists": "This group already exists",
 
+  "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+
+  "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+
+  "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+
+  "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+
+  "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+
+  "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+
+  "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
+
   "feed.description": "Syndication feed",
 
   "file-section.error.header": "Error obtaining files for this item",
@@ -1660,7 +1720,17 @@
 
   "form.no-value": "No value entered",
 
-  "form.other-information": {},
+  "form.other-information.email": "Email",
+
+  "form.other-information.first-name": "First Name",
+
+  "form.other-information.insolr": "In Solr Index",
+
+  "form.other-information.institution": "Institution",
+
+  "form.other-information.last-name": "Last Name",
+
+  "form.other-information.orcid": "ORCID",
 
   "form.remove": "Remove",
 
@@ -1674,13 +1744,15 @@
 
   "form.submit": "Save",
 
+  "form.create": "Create",
+
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
   "grant-deny-request-copy.deny": "Don't send copy",
 
   "grant-deny-request-copy.email.back": "Back",
 
-  "grant-deny-request-copy.email.message": "Message",
+  "grant-deny-request-copy.email.message": "Optional additional message",
 
   "grant-deny-request-copy.email.message.empty": "Please enter a message",
 
@@ -1714,7 +1786,7 @@
 
   "grant-request-copy.header": "Grant document copy request",
 
-  "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
 
   "grant-request-copy.success": "Successfully granted item request",
 
@@ -1785,6 +1857,8 @@
   "info.end-user-agreement.head": "End User Agreement",
 
   "info.end-user-agreement.title": "End User Agreement",
+
+  "info.end-user-agreement.hosting-country": "the United States",
 
   "info.privacy.breadcrumbs": "Privacy Statement",
 
@@ -2176,6 +2250,12 @@
 
   "item.edit.tabs.curate.title": "Item Edit - Curate",
 
+  "item.edit.curate.title": "Curate Item: {{item}}",
+
+  "item.edit.tabs.access-control.head": "Access Control",
+
+  "item.edit.tabs.access-control.title": "Item Edit - Access Control",
+
   "item.edit.tabs.metadata.head": "Metadata",
 
   "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
@@ -2396,9 +2476,11 @@
 
   "item.preview.dc.identifier": "Identifier:",
 
-  "item.preview.dc.relation.ispartof": "Journal or Serie",
+  "item.preview.dc.relation.ispartof": "Journal or Series",
 
   "item.preview.dc.identifier.doi": "DOI",
+
+  "item.preview.dc.publisher": "Publisher:",
 
   "item.preview.person.familyName": "Surname:",
 
@@ -2550,7 +2632,7 @@
 
   "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
-  "itemtemplate.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
 
   "itemtemplate.edit.metadata.notifications.error.title": "An error occurred",
 
@@ -2560,7 +2642,7 @@
 
   "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
-  "itemtemplate.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated",
 
   "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.",
 
@@ -2720,6 +2802,8 @@
 
   "menu.section.access_control_authorizations": "Authorizations",
 
+  "menu.section.access_control_bulk": "Bulk Access Management",
+
   "menu.section.access_control_groups": "Groups",
 
   "menu.section.access_control_people": "People",
@@ -2741,6 +2825,8 @@
   "menu.section.browse_global_by_dateissued": "By Issue Date",
 
   "menu.section.browse_global_by_subject": "By Subject",
+
+  "menu.section.browse_global_by_srsc": "By Subject Category",
 
   "menu.section.browse_global_by_title": "By Title",
 
@@ -2928,15 +3014,15 @@
 
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
-  "mydspace.status.archived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archived",
 
-  "mydspace.status.validation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validation",
 
-  "mydspace.status.waiting-for-controller": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
 
-  "mydspace.status.workflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Workflow",
 
-  "mydspace.status.workspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   "mydspace.title": "MyDSpace",
 
@@ -2971,6 +3057,8 @@
   "nav.profile": "Profile",
 
   "nav.search": "Search",
+
+  "nav.search.button": "Submit search",
 
   "nav.statistics.header": "Statistics",
 
@@ -3075,6 +3163,8 @@
   "process.new.notification.error.title": "Error",
 
   "process.new.notification.error.content": "An error occurred while creating this process",
+
+  "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size",
 
   "process.new.header": "Create a new process",
 
@@ -3403,6 +3493,8 @@
   "relationships.isFundingAgencyOf.OrgUnit": "Funder",
 
   "repository.image.logo": "Repository logo",
+
+  "repository.title": "Institutional Scholarship",
 
   "repository.title.prefix": "Institutional Scholarship :: ",
 
@@ -3822,13 +3914,15 @@
 
   "statistics.table.header.views": "Views",
 
+  "statistics.table.no-name": "(object name could not be loaded)",
+
   "submission.edit.breadcrumbs": "Edit Submission",
 
   "submission.edit.title": "Edit Submission",
 
   "submission.general.cancel": "Cancel",
 
-  "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  "submission.general.cannot_submit": "You don't have permission to make a new submission.",
 
   "submission.general.deposit": "Deposit",
 
@@ -4482,7 +4576,7 @@
 
   "submission.workflow.generic.delete": "Delete",
 
-  "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+  "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
 
   "submission.workflow.generic.edit": "Edit",
 
@@ -4547,6 +4641,8 @@
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
+  "submitter.empty": "N/A",
 
   "subscriptions.title": "Subscriptions",
 
@@ -4634,7 +4730,7 @@
 
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-  title: "DSpace",
+  "title": "DSpace",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 
@@ -4721,6 +4817,22 @@
   "workspace-item.view.breadcrumbs": "Workspace View",
 
   "workspace-item.view.title": "Workspace View",
+
+  "workspace-item.delete.breadcrumbs": "Workspace Delete",
+
+  "workspace-item.delete.header": "Delete workspace item",
+
+  "workspace-item.delete.button.confirm": "Delete",
+
+  "workspace-item.delete.button.cancel": "Cancel",
+
+  "workspace-item.delete.notification.success.title": "Deleted",
+
+  "workspace-item.delete.title": "This workspace item was successfully deleted",
+
+  "workspace-item.delete.notification.error.title": "Something went wrong",
+
+  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
 
   "workflow-item.advanced.title": "Advanced workflow",
 
@@ -5058,6 +5170,56 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
+  "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+
+  "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  "access-control-item-header-toggle": "Item's Metadata",
+
+  "access-control-bitstream-header-toggle": "Bitstreams",
+
+  "access-control-mode": "Mode",
+
+  "access-control-access-conditions": "Access conditions",
+
+  "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+
+  "access-control-replace-all": "Replace access conditions",
+
+  "access-control-add-to-existing": "Add to existing ones",
+
+  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+
+  "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+
+  "access-control-bitstreams-selected": "bitstreams selected",
+
+  "access-control-cancel": "Cancel",
+
+  "access-control-execute": "Execute",
+
+  "access-control-add-more": "Add more",
+
+  "access-control-select-bitstreams-modal.title": "Select bitstreams",
+
+  "access-control-select-bitstreams-modal.no-items": "No items to show.",
+
+  "access-control-select-bitstreams-modal.close": "Close",
+
+  "access-control-option-label": "Access condition type",
+
+  "access-control-option-note": "Choose an access condition to apply to selected objects.",
+
+  "access-control-option-start-date": "Grant access from",
+
+  "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+
+  "access-control-option-end-date": "Grant access until",
+
+  "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+
   "footer.link.bmc-tripod": "Tripod: The TriCollege Library Catalog",
 
   "footer.link.bmc-library": "Bryn Mawr Library",
@@ -5171,4 +5333,5 @@
   "item.page.contributor.interviewer": "Interviewer",
 
   "item.page.date.create": "Date Created",
+
 }
