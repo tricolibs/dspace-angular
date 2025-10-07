@@ -62,7 +62,7 @@ export class LogInComponent implements OnInit {
     // });
       map((methods: AuthMethod[]) => methods
         .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
-        .filter((authMethod: AuthMethod) => a.authMethodType != AuthMethodtype.Ip)
+        .filter((authMethod: AuthMethod) => authMethod.authMethodType !== AuthMethodType.Ip)
         .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position)
       ),
     );
