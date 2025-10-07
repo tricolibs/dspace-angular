@@ -53,7 +53,7 @@ export class LogInComponent implements OnInit {
   ngOnInit(): void {
     this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
-    // TriCo old method for reference
+    // TriCo old method for reference - remove when this works!
     // ).subscribe(methods => {
     //   // ignore the ip authentication method when it's returned by the backend
     //   // The reverse statement here is a crude way to get the Haverford Shibboleth link
