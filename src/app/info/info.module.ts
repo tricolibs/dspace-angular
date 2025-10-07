@@ -16,7 +16,8 @@ import { FeedbackGuard } from '../core/feedback/feedback.guard';
 import { AboutComponent } from './about/about.component';
 import { AboutContentComponent } from './about/about-content/about-content.component';
 import { ThemedAboutComponent } from './about/themed-about.component';
-
+import { AccessibilitySettingsComponent } from './accessibility-settings/accessibility-settings.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 const DECLARATIONS = [
   EndUserAgreementComponent,
@@ -32,6 +33,7 @@ const DECLARATIONS = [
   AboutComponent,
   AboutContentComponent,
   ThemedAboutComponent
+  AccessibilitySettingsComponent,
 ];
 
 @NgModule({
@@ -39,6 +41,7 @@ const DECLARATIONS = [
     CommonModule,
     SharedModule,
     InfoRoutingModule,
+    UiSwitchModule,
   ],
   declarations: [
     ...DECLARATIONS

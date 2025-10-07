@@ -1,13 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { PRIVACY_PATH, END_USER_AGREEMENT_PATH, FEEDBACK_PATH, ABOUT_PATH } from './info-routing-paths';
+import {
+  PRIVACY_PATH,
+  END_USER_AGREEMENT_PATH,
+  FEEDBACK_PATH,
+  ABOUT_PATH,
+  ACCESSIBILITY_SETTINGS_PATH
+} from './info-routing-paths';
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { ThemedAboutComponent } from './about/themed-about.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
 import { environment } from '../../environments/environment';
+import { AccessibilitySettingsComponent } from './accessibility-settings/accessibility-settings.component';
 
 
 const imports = [
@@ -24,7 +31,13 @@ const imports = [
       component: ThemedAboutComponent,
       resolve: { breadcrumb: I18nBreadcrumbResolver },
       data: { title: 'info.about.title', breadcrumbKey: 'info.about' },
-    }
+    },
+    {
+      path: ACCESSIBILITY_SETTINGS_PATH,
+      component: AccessibilitySettingsComponent,
+      resolve: { breadcrumb: I18nBreadcrumbResolver },
+      data: { title: 'info.accessibility-settings.title', breadcrumbKey: 'info.accessibility-settings' },
+    },
   ])
 ];
 
