@@ -32,7 +32,7 @@ const DECLARATIONS = [
   ThemedFeedbackComponent,
   AboutComponent,
   AboutContentComponent,
-  ThemedAboutComponent
+  ThemedAboutComponent,
   AccessibilitySettingsComponent,
 ];
 
