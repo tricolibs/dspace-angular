@@ -4730,7 +4730,7 @@
 
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-  "title": "DSpace",
+  title: "DSpace",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 
@@ -5333,5 +5333,4 @@
   "item.page.contributor.interviewer": "Interviewer",
 
   "item.page.date.create": "Date Created",
-
 }
