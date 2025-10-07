@@ -44,3 +44,10 @@ themes:
 info:
   enableEndUserAgreement: false
   enablePrivacyStatement: false
+
+## From 7.6.3
+#   rest:
+#   ssl: true
+#   host: demo.dspace.org
+#   port: 443
+#   nameSpace: /server
