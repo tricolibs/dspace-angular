@@ -16,14 +16,14 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
-    <ng-container *ngIf="!mediaViewer.image">
+    <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
-        <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
+        <ds-themed-thumbnail [thumbnail]="object?.thumbnail | async"></ds-themed-thumbnail>
       </ds-metadata-field-wrapper>
     </ng-container>
-    <ng-container *ngIf="mediaViewer.image">
-      <ds-media-viewer [item]="object" [videoOptions]="mediaViewer.video"></ds-media-viewer>
-    </ng-container>
+    <div *ngIf="mediaViewer.image || mediaViewer.video" class="mb-2">
+      <ds-themed-media-viewer [item]="object"></ds-themed-media-viewer>
+    </div>
     <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
     <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
@@ -93,13 +93,13 @@
       [fields]="['dc.contributor.setdesign']"
       [label]="'item.page.contributor.setdesign'">
     </ds-generic-item-page-field>
-    
+
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.contributor.videographer', 'dc.contributor.stagecrew', 'dc.contributor.funder', 'dc.contributor.rehearsaldirector', 'dc.contributor.concertcoordinator', 'dc.contributor.production', 'dc.contributor.stagemanager', 'dc.contributor.choreographicassistant', 'dc.contributor.companymanager', 'dc.contributor.executivedirector']"
       [label]="'item.page.contributor.production'">
     </ds-generic-item-page-field>
-    
-    
+
+
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.contributor.advisor']"
       [label]="'item.page.contributor.advisor'">
@@ -142,8 +142,8 @@
       [separator]="', '"
       [label]="'item.page.language.iso'">
     </ds-generic-item-page-field>
-    
-   
+
+
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.rights']"
       [label]="'item.page.rights'">
@@ -170,8 +170,8 @@
       [fields]="['dc.identifier ']"
       [label]="'item.page.identifier'">
     </ds-generic-item-page-field>
-    
-    
+
+
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
@@ -189,7 +189,7 @@
       [separator]="'<br />'"
       [label]="'item.page.subject'">
     </ds-generic-item-page-field>
-  
+
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.identifier.citation']"
       [label]="'item.page.citation'">
