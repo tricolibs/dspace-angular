@@ -1,8 +1,10 @@
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { Component } from '@angular/core';
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
-import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list-browse-definition.resource-type';
+import {
+  MetadataRepresentationType
+} from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import {Component} from '@angular/core';
+import {MetadataRepresentationListElementComponent} from '../metadata-representation-list-element.component';
+import {metadataRepresentationComponent} from '../../../metadata-representation/metadata-representation.decorator';
+import {VALUE_LIST_BROWSE_DEFINITION} from '../../../../core/shared/value-list-browse-definition.resource-type';
 
 @metadataRepresentationComponent('Publication', MetadataRepresentationType.PlainText)
 // For now, authority controlled fields are rendered the same way as plain text fields
@@ -22,7 +24,9 @@ export class PlainTextMetadataListElementComponent extends MetadataRepresentatio
    */
   getQueryParams() {
     let queryParams = {startsWith: this.mdRepresentation.getValue()};
-    if (this.mdRepresentation.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
+    // Trico mod - for things that aren't dates we still want to link the value, even if in a list
+    if (this.mdRepresentation.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value ||
+      this.mdRepresentation.browseDefinition.getRenderType() !== 'date') {
       return {value: this.mdRepresentation.getValue()};
     }
     return queryParams;

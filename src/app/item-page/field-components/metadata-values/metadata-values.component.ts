@@ -1,10 +1,10 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { hasValue } from '../../../shared/empty.util';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
-import { environment } from '../../../../environments/environment';
+import {Component, Inject, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {MetadataValue} from '../../../core/shared/metadata.models';
+import {APP_CONFIG, AppConfig} from '../../../../config/app-config.interface';
+import {BrowseDefinition} from '../../../core/shared/browse-definition.model';
+import {hasValue} from '../../../shared/empty.util';
+import {VALUE_LIST_BROWSE_DEFINITION} from '../../../core/shared/value-list-browse-definition.resource-type';
+import {environment} from '../../../../environments/environment';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -86,7 +86,9 @@ export class MetadataValuesComponent implements OnChanges {
    */
   getQueryParams(value) {
     let queryParams = {startsWith: value};
-    if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
+    // Trico mod - for things that aren't dates we still want to link the value, even if in a list
+    if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value ||
+      this.browseDefinition.getRenderType() !== 'date') {
       return {value: value};
     }
     return queryParams;
@@ -107,9 +109,9 @@ export class MetadataValuesComponent implements OnChanges {
    */
   getLinkAttributes(urlValue: string): { target: string, rel: string } {
     if (this.hasInternalLink(urlValue)) {
-      return { target: '_self', rel: '' };
+      return {target: '_self', rel: ''};
     } else {
-      return { target: '_blank', rel: 'noopener noreferrer' };
+      return {target: '_blank', rel: 'noopener noreferrer'};
     }
   }
 }
