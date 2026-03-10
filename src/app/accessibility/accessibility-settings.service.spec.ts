@@ -1,20 +1,29 @@
 import {
-  AccessibilitySettingsService,
-  AccessibilitySettings,
-  ACCESSIBILITY_SETTINGS_METADATA_KEY,
-  ACCESSIBILITY_COOKIE, AccessibilitySettingsFormValues, FullAccessibilitySettings
-} from './accessibility-settings.service';
-import { CookieService } from '../core/services/cookie.service';
+  fakeAsync,
+  flush,
+} from '@angular/core/testing';
+import { of } from 'rxjs';
+
+import { AppConfig } from '../../config/app-config.interface';
 import { AuthService } from '../core/auth/auth.service';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
-import { AuthServiceStub } from '../shared/testing/auth-service.stub';
-import { of } from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
-import { fakeAsync, flush } from '@angular/core/testing';
-import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
+import { CookieService } from '../core/services/cookie.service';
 import { KlaroServiceStub } from '../shared/cookies/klaro.service.stub';
-import { AppConfig } from '../../config/app-config.interface';
+import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import { AuthServiceStub } from '../shared/testing/auth-service.stub';
+import {
+  ACCESSIBILITY_COOKIE,
+  ACCESSIBILITY_SETTINGS_METADATA_KEY,
+  AccessibilitySettings,
+  AccessibilitySettingsFormValues,
+  AccessibilitySettingsService,
+  FullAccessibilitySettings,
+} from './accessibility-settings.service';
 
 
 describe('accessibilitySettingsService', () => {
@@ -29,7 +38,7 @@ describe('accessibilitySettingsService', () => {
     cookieService = new CookieServiceMock();
     authService = new AuthServiceStub();
     klaroService = new KlaroServiceStub();
-    appConfig = { accessibility: { cookieExpirationDuration: 10 }} as AppConfig;
+    appConfig = { accessibility: { cookieExpirationDuration: 10 } } as AppConfig;
 
     klaroService.getSavedPreferences.and.returnValue(of({ accessibility: true }));
 
@@ -59,7 +68,7 @@ describe('accessibilitySettingsService', () => {
       service.getAll = jasmine.createSpy('getAll').and.returnValue(of(settings));
 
       service.get('notificationTimeOut', 'default').subscribe(value =>
-        expect(value).toEqual('1000')
+        expect(value).toEqual('1000'),
       );
     });
 
@@ -71,7 +80,7 @@ describe('accessibilitySettingsService', () => {
       service.getAll = jasmine.createSpy('getAll').and.returnValue(of(settings));
 
       service.get('liveRegionTimeOut', 'default').subscribe(value =>
-        expect(value).toEqual('default')
+        expect(value).toEqual('default'),
       );
     });
   });
@@ -81,7 +90,7 @@ describe('accessibilitySettingsService', () => {
       service.get = jasmine.createSpy('get').and.returnValue(of('1000'));
 
       service.getAsNumber('notificationTimeOut').subscribe(value =>
-        expect(value).toEqual(1000)
+        expect(value).toEqual(1000),
       );
     });
 
@@ -89,7 +98,7 @@ describe('accessibilitySettingsService', () => {
       service.get = jasmine.createSpy('get').and.returnValue(of(null));
 
       service.getAsNumber('notificationTimeOut', 123).subscribe(value =>
-        expect(value).toEqual(123)
+        expect(value).toEqual(123),
       );
     });
 
@@ -97,7 +106,7 @@ describe('accessibilitySettingsService', () => {
       service.get = jasmine.createSpy('get').and.returnValue(of('text'));
 
       service.getAsNumber('notificationTimeOut', 123).subscribe(value =>
-        expect(value).toEqual(123)
+        expect(value).toEqual(123),
       );
     });
   });
@@ -165,7 +174,7 @@ describe('accessibilitySettingsService', () => {
         jasmine.createSpy('getAuthenticatedUserFromStoreIfAuthenticated').and.returnValue(of(user));
 
       service.getAllSettingsFromAuthenticatedUserMetadata().subscribe(value =>
-        expect(value).toEqual(settings)
+        expect(value).toEqual(settings),
       );
     });
   });
@@ -229,7 +238,7 @@ describe('accessibilitySettingsService', () => {
       };
 
       service.setSettings(settings).subscribe(value =>
-        expect(value).toEqual('metadata')
+        expect(value).toEqual('metadata'),
       );
     });
 
@@ -242,7 +251,7 @@ describe('accessibilitySettingsService', () => {
       };
 
       service.setSettings(settings).subscribe(value =>
-        expect(value).toEqual('cookie')
+        expect(value).toEqual('cookie'),
       );
     });
   });
@@ -330,8 +339,8 @@ describe('accessibilitySettingsService', () => {
 
       service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' })
         .subscribe(value => {
-        expect(value).toEqual('metadata');
-      });
+          expect(value).toEqual('metadata');
+        });
 
       flush();
     }));
@@ -341,8 +350,8 @@ describe('accessibilitySettingsService', () => {
 
       service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' })
         .subscribe(value => {
-        expect(value).toEqual('failed');
-      });
+          expect(value).toEqual('failed');
+        });
 
       flush();
     }));

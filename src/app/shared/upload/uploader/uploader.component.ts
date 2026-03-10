@@ -1,27 +1,51 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
-
-import { of as observableOf } from 'rxjs';
-import { FileUploader } from 'ng2-file-upload';
-import uniqueId from 'lodash/uniqueId';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-
-import { UploaderOptions } from './uploader-options.model';
-import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
-import { UploaderProperties } from './uploader-properties.model';
+import { CommonModule } from '@angular/common';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.constants';
-import { CookieService } from '../../../core/services/cookie.service';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
+import {
+  FileUploader,
+  FileUploadModule,
+} from 'ng2-file-upload';
+import { of as observableOf } from 'rxjs';
+
 import { DragService } from '../../../core/drag.service';
+import { CookieService } from '../../../core/services/cookie.service';
+import {
+  XSRF_COOKIE,
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+} from '../../../core/xsrf/xsrf.constants';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '../../empty.util';
+import { UploaderOptions } from './uploader-options.model';
+import { UploaderProperties } from './uploader-properties.model';
 
 @Component({
   selector: 'ds-uploader',
   templateUrl: 'uploader.component.html',
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [TranslateModule, FileUploadModule, CommonModule, BtnDisabledDirective],
 })
-
-export class UploaderComponent {
+export class UploaderComponent implements OnInit, AfterViewInit {
 
   /**
    * Header key to impersonate a user
@@ -97,17 +121,16 @@ export class UploaderComponent {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
+    private cookieService: CookieService,
   ) {
   }
 
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.uploaderId = 'ds-drag-and-drop-uploader' + uniqueId();
     this.checkConfig(this.uploadFilesOptions);
     this.uploader = new FileUploader({
@@ -132,7 +155,7 @@ export class UploaderComponent {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.uploader.onAfterAddingAll = ((items) => {
       this.onFileSelected.emit(items);
     });

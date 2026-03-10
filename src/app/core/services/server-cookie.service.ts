@@ -1,7 +1,14 @@
-import { Injectable, Inject } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { CookieAttributes } from 'js-cookie';
-import { CookieService, ICookieService } from './cookie.service';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+
+import { REQUEST } from '../../../express.tokens';
+import {
+  CookieService,
+  ICookieService,
+} from './cookie.service';
 
 @Injectable()
 export class ServerCookieService extends CookieService implements ICookieService {

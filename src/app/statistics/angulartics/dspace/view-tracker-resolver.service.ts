@@ -1,16 +1,24 @@
-import { Injectable, } from '@angular/core';
+import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveEnd,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
 import { switchMap } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
 import { ReferrerService } from '../../../core/services/referrer.service';
-import { ActivatedRouteSnapshot, ResolveEnd, Router, RouterStateSnapshot } from '@angular/router';
 
 /**
  * This component triggers a page view statistic
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ViewTrackerResolverService {
 

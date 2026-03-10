@@ -1,23 +1,57 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  catchError,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { createFailedRemoteDataObject } from '../../../shared/remote-data.utils';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../core/services/window.service';
+import { Item } from '../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-orcid-auth',
   templateUrl: './orcid-auth.component.html',
-  styleUrls: ['./orcid-auth.component.scss']
+  styleUrls: ['./orcid-auth.component.scss'],
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgForOf,
+    AlertComponent,
+    BtnDisabledDirective,
+  ],
+  standalone: true,
 })
 export class OrcidAuthComponent implements OnInit, OnChanges {
 
@@ -100,7 +134,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    */
   hasOrcidAuthorizations(): Observable<boolean> {
     return this.profileAuthorizationScopes$.pipe(
-      map((scopes: string[]) => scopes.length > 0)
+      map((scopes: string[]) => scopes.length > 0),
     );
   }
 
@@ -109,7 +143,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
    */
   hasMissingOrcidAuthorizations(): Observable<boolean> {
     return this.missingAuthorizationScopes.asObservable().pipe(
-      map((scopes: string[]) => scopes.length > 0)
+      map((scopes: string[]) => scopes.length > 0),
     );
   }
 
@@ -154,7 +188,7 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
     this.unlinkProcessing.next(true);
     this.orcidAuthService.unlinkOrcidByItem(this.item).pipe(
       getFirstCompletedRemoteData(),
-      catchError((err: HttpErrorResponse) => of(createFailedRemoteDataObject(err.message, err.status)))
+      catchError(createFailedRemoteDataObjectFromError$<ResearcherProfile>),
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
       this.unlinkProcessing.next(false);
       if (remoteData.hasFailed) {

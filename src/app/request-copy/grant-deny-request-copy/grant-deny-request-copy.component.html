@@ -8,15 +8,13 @@
       <div class="btn-group ">
         <a [routerLink]="grantRoute$ | async"
            class="btn btn-outline-primary"
-           title="{{'grant-deny-request-copy.grant' | translate }}"
-           role="button" tabindex="0">
+           title="{{'grant-deny-request-copy.grant' | translate }}" role="button" tabindex="0">
           {{'grant-deny-request-copy.grant' | translate }}
         </a>
 
         <a [routerLink]="denyRoute$ | async"
            class="btn btn-outline-danger"
-           title="{{'grant-deny-request-copy.deny' | translate }}"
-           role="button" tabindex="0">
+           title="{{'grant-deny-request-copy.deny' | translate }}" role="button" tabindex="0">
           {{'grant-deny-request-copy.deny' | translate }}
         </a>
       </div>
@@ -28,5 +26,5 @@
       </p>
     </div>
   </div>
-  <ds-themed-loading *ngIf="!itemRequestRD || itemRequestRD?.isLoading"></ds-themed-loading>
+  <ds-loading *ngIf="!itemRequestRD || itemRequestRD?.isLoading"></ds-loading>
 </div>

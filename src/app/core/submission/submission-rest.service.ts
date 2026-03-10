@@ -1,25 +1,38 @@
 import { Injectable } from '@angular/core';
+import {
+  Observable,
+  skipWhile,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
-import { Observable, skipWhile } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-
-import { RequestService } from '../data/request.service';
-import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RemoteData } from '../data/remote-data';
 import {
   DeleteRequest,
   PostRequest,
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
   SubmissionPostRequest,
-  SubmissionRequest
+  SubmissionRequest,
 } from '../data/request.models';
-import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
+import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { RemoteData } from '../data/remote-data';
 import { SubmissionResponse } from './submission-response.model';
 
 /**
@@ -42,7 +55,7 @@ export const getFirstDataDefinition = () =>
 /**
  * The service handling all submission REST requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionRestService {
   protected linkPath = 'workspaceitems';
 
@@ -141,7 +154,7 @@ export class SubmissionRestService {
             if (hasValue(rd) && rd.isStale) {
               this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
             }
-          })
+          }),
         );
       }),
       getFirstDataDefinition(),

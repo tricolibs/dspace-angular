@@ -1,18 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, Component } from '@angular/core';
-
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { BulkAccessComponent } from './bulk-access.component';
-import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
-import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { Process } from '../../process-page/processes/process.model';
-import { RouterTestingModule } from '@angular/router/testing';
+import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { BulkAccessComponent } from './bulk-access.component';
+import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 
 describe('BulkAccessComponent', () => {
   let component: BulkAccessComponent;
@@ -31,35 +39,37 @@ describe('BulkAccessComponent', () => {
         'startDate': {
           'year': 2026,
           'month': 5,
-          'day': 31
+          'day': 31,
         },
-        'endDate': null
-      }
+        'endDate': null,
+      },
     ],
     'state': {
       'item': {
         'toggleStatus': true,
-        'accessMode': 'replace'
+        'accessMode': 'replace',
       },
       'bitstream': {
         'toggleStatus': false,
         'accessMode': '',
         'changesLimit': '',
-        'selectedBitstreams': []
-      }
-    }
+        'selectedBitstreams': [],
+      },
+    },
   };
 
   const mockFile = {
     'uuids': [
-      '1234', '5678'
+      '1234', '5678',
     ],
-    'file': {  }
+    'file': {  },
   };
 
   @Component({
     selector: 'ds-bulk-access-settings',
-    template: ''
+    template: '',
+    exportAs: 'dsBulkSettings',
+    standalone: true,
   })
   class MockBulkAccessSettingsComponent {
     isFormValid = jasmine.createSpy('isFormValid').and.returnValue(false);
@@ -76,19 +86,27 @@ describe('BulkAccessComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         BulkAccessComponent,
-        MockBulkAccessSettingsComponent,
       ],
       providers: [
         { provide: BulkAccessControlService, useValue: bulkAccessControlServiceMock },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
-        { provide: SelectableListService, useValue: selectableListServiceMock }
+        { provide: SelectableListService, useValue: selectableListServiceMock },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(BulkAccessComponent, {
+        remove: {
+          imports: [
+            BulkAccessSettingsComponent,
+          ],
+        },
+        add: {
+          imports: [MockBulkAccessSettingsComponent],
+        },
+      })
       .compileComponents();
   });
 
@@ -104,7 +122,7 @@ describe('BulkAccessComponent', () => {
     fixture.destroy();
   });
 
-  describe('when there are no elements selected', () => {
+  describe('when there are no elements selected and step two form is invalid', () => {
 
     beforeEach(() => {
 
@@ -126,7 +144,7 @@ describe('BulkAccessComponent', () => {
 
   });
 
-  describe('when there are elements selected and step two form is invalid', () => {
+  describe('when there are elements selected', () => {
 
     beforeEach(() => {
 
@@ -151,11 +169,8 @@ describe('BulkAccessComponent', () => {
       component.reset();
       expect(component.settings.reset).toHaveBeenCalled();
     });
-
-
   });
-
-  describe('when there are elements selectedted and the step two form is valid', () => {
+  describe('when there are elements selected and the step two form is valid', () => {
 
     beforeEach(() => {
 

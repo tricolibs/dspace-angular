@@ -1,10 +1,18 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+
+import {
+  SectionScope,
+  SectionVisibility,
+} from '../../../submission/objects/section-visibility.model';
 import { SectionsType } from '../../../submission/sections/sections-type';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
 import { ConfigObject } from './config.model';
 import { SUBMISSION_SECTION_TYPE } from './config-type';
-import { SectionScope, SectionVisibility } from '../../../submission/objects/section-visibility.model';
 
 @typedObject
 @inheritSerialization(ConfigObject)

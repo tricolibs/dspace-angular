@@ -1,4 +1,4 @@
-<ds-alert [content]="'vocabulary-treeview.info' | translate" [type]="AlertType.Info"></ds-alert>
+<ds-alert *ngIf="description" [content]="description" [type]="AlertType.Info"></ds-alert>
 <div class="treeview-header row mb-1">
   <div class="col-12">
     <div class="input-group">
@@ -14,6 +14,10 @@
                 [attr.aria-label]="'vocabulary-treeview.search.form.reset' | translate" role="button" tabindex="0">
           {{'vocabulary-treeview.search.form.reset' | translate}}
         </button>
+        <button *ngIf="showAdd && this.vocabularyOptions.closed" class="btn btn-outline-primary" type="button" (click)="add()"
+                [attr.aria-label]="'vocabulary-treeview.search.form.add' | translate" role="button" tabindex="0">
+          {{'vocabulary-treeview.search.form.add' | translate}}
+        </button>
         <button class="btn btn-outline-primary" type="button" (click)="add()" [dsBtnDisabled]="this.vocabularyOptions.closed"
                 [attr.aria-label]="'vocabulary-treeview.search.form.add' | translate" role="button" tabindex="0">
           {{'vocabulary-treeview.search.form.add' | translate}}
@@ -23,9 +27,9 @@
   </div>
 </div>
 <div class="treeview-container">
-  <ds-themed-loading *ngIf="loading | async" [showMessage]="false"></ds-themed-loading>
+  <ds-loading *ngIf="loading | async" [showMessage]="false"></ds-loading>
   <div aria-live="polite">
-    <h2 *ngIf="!(loading | async) && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
+    <h2 *ngIf="(loading | async) !== true && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
       <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
     </h2>
   </div>
@@ -69,6 +73,8 @@
         <button type="button" class="btn btn-default px-2 mr-1" cdkTreeNodeToggle
                 [attr.aria-label]="'toggle ' + node.name"
                 (click)="loadChildren(node)"
+                (keydown.enter)="loadChildren(node)"
+                (keydown.space)="loadChildren(node)"
                 role="button"
                 tabindex="0">
           <i class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"></i>

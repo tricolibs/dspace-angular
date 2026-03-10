@@ -1,36 +1,51 @@
 import {
+  NgClass,
+  NgFor,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-
-import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, Subscription, take, of as observableOf } from 'rxjs';
-
-import { NotificationsService } from '../notifications.service';
-import { AppState } from '../../../app.reducer';
-import { notificationsStateSelector } from '../selectors';
-import { INotification } from '../models/notification.model';
-import { NotificationsState } from '../notifications.reducers';
-import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import { LiveRegionService } from '../../live-region/live-region.service';
-import { hasNoValue, isNotEmptyOperator } from '../../empty.util';
 import {
-  AccessibilitySettingsService
-} from '../../../accessibility/accessibility-settings.service';
+  select,
+  Store,
+} from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
 import differenceWith from 'lodash/differenceWith';
+import {
+  BehaviorSubject,
+  of as observableOf,
+  Subscription,
+  take,
+} from 'rxjs';
+
+import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
+import { AppState } from '../../../app.reducer';
+import {
+  hasNoValue,
+  isNotEmptyOperator,
+} from '../../empty.util';
+import { LiveRegionService } from '../../live-region/live-region.service';
+import { INotification } from '../models/notification.model';
+import { NotificationComponent } from '../notification/notification.component';
+import { NotificationsState } from '../notifications.reducers';
+import { NotificationsService } from '../notifications.service';
+import { notificationsStateSelector } from '../selectors';
 
 @Component({
   selector: 'ds-notifications-board',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './notifications-board.component.html',
   styleUrls: ['./notifications-board.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgClass, NgFor, NotificationComponent],
 })
 export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
@@ -110,9 +125,9 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
           const modifiedNotification = cloneDeep(item);
           modifiedNotification.options.timeOut = timeOut;
           this.notifications.splice(0, 0, modifiedNotification);
-        this.addContentToLiveRegion(modifiedNotification);
-        this.cdr.detectChanges();
-      });
+          this.addContentToLiveRegion(modifiedNotification);
+          this.cdr.detectChanges();
+        });
 
     } else {
       // Remove the notification from the store

@@ -1,25 +1,58 @@
-import { StoreModule } from '@ngrx/store';
-import { fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
-
-import { of as observableOf, throwError as observableThrowError } from 'rxjs';
+import {
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import {
+  of as observableOf,
+  throwError as observableThrowError,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
 
-import { RouterMock } from '../shared/mocks/router.mock';
-import { SubmissionService } from './submission.service';
-import { submissionReducers } from './submission.reducers';
-import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { RouteService } from '../core/services/route.service';
-import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
+import { environment } from '../../environments/environment';
+import { storeModuleConfig } from '../app.reducer';
+import { ErrorResponse } from '../core/cache/response.models';
+import { RequestService } from '../core/data/request.service';
+import { RequestError } from '../core/data/request-error.model';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
+import { RouteService } from '../core/services/route.service';
+import { Item } from '../core/shared/item.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { mockSubmissionDefinition, mockSubmissionRestResponse } from '../shared/mocks/submission.mock';
-import { NotificationsService } from '../shared/notifications/notifications.service';
+import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
+import { getMockRequestService } from '../shared/mocks/request.service.mock';
+import { RouterMock } from '../shared/mocks/router.mock';
+import { getMockSearchService } from '../shared/mocks/search-service.mock';
+import {
+  mockSubmissionDefinition,
+  mockSubmissionRestResponse,
+} from '../shared/mocks/submission.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { createFailedRemoteDataObject } from '../shared/remote-data.utils';
+import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
+import { SectionScope } from './objects/section-visibility.model';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -30,19 +63,10 @@ import {
   SaveForLaterSubmissionFormAction,
   SaveSubmissionFormAction,
   SaveSubmissionSectionFormAction,
-  SetActiveSectionAction
+  SetActiveSectionAction,
 } from './objects/submission-objects.actions';
-import { createFailedRemoteDataObject, } from '../shared/remote-data.utils';
-import { getMockSearchService } from '../shared/mocks/search-service.mock';
-import { getMockRequestService } from '../shared/mocks/request.service.mock';
-import { RequestService } from '../core/data/request.service';
-import { SearchService } from '../core/shared/search/search.service';
-import { Item } from '../core/shared/item.model';
-import { storeModuleConfig } from '../app.reducer';
-import { environment } from '../../environments/environment';
-import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
-import { SectionScope } from './objects/section-visibility.model';
+import { submissionReducers } from './submission.reducers';
+import { SubmissionService } from './submission.service';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -63,7 +87,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'utils',
             visibility: {
               main: 'HIDDEN',
-              other: 'HIDDEN'
+              other: 'HIDDEN',
             },
             collapsed: false,
             enabled: true,
@@ -71,7 +95,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           collection: {
             config: '',
@@ -80,7 +104,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'collection',
             visibility: {
               main: 'HIDDEN',
-              other: 'HIDDEN'
+              other: 'HIDDEN',
             },
             collapsed: false,
             enabled: true,
@@ -88,7 +112,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           keyinformation: {
             header: 'submit.progressbar.describe.keyinformation',
@@ -101,7 +125,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           indexing: {
             header: 'submit.progressbar.describe.indexing',
@@ -114,7 +138,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           publicationchannel: {
             header: 'submit.progressbar.describe.publicationchannel',
@@ -127,7 +151,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: true
+            isValid: true,
           },
           acknowledgement: {
             header: 'submit.progressbar.describe.acknowledgement',
@@ -140,7 +164,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           identifiers: {
             header: 'submit.progressbar.describe.identifiers',
@@ -153,7 +177,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           references: {
             header: 'submit.progressbar.describe.references',
@@ -166,7 +190,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           upload: {
             header: 'submit.progressbar.upload',
@@ -179,7 +203,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           license: {
             header: 'submit.progressbar.license',
@@ -188,7 +212,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'license',
             visibility: {
               main: null,
-              other: 'READONLY'
+              other: 'READONLY',
             },
             collapsed: false,
             enabled: true,
@@ -196,14 +220,14 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
-          }
+            isValid: false,
+          },
         },
         isLoading: false,
         savePending: false,
-        depositPending: false
-      }
-    }
+        depositPending: false,
+      },
+    },
   };
   const validSubState = {
     objects: {
@@ -220,7 +244,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'utils',
             visibility: {
               main: 'HIDDEN',
-              other: 'HIDDEN'
+              other: 'HIDDEN',
             },
             collapsed: false,
             enabled: true,
@@ -228,7 +252,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           collection: {
             config: '',
@@ -237,7 +261,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'collection',
             visibility: {
               main: 'HIDDEN',
-              other: 'HIDDEN'
+              other: 'HIDDEN',
             },
             collapsed: false,
             enabled: true,
@@ -245,7 +269,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           keyinformation: {
             header: 'submit.progressbar.describe.keyinformation',
@@ -258,7 +282,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: true
+            isValid: true,
           },
           indexing: {
             header: 'submit.progressbar.describe.indexing',
@@ -271,7 +295,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           publicationchannel: {
             header: 'submit.progressbar.describe.publicationchannel',
@@ -284,7 +308,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: true
+            isValid: true,
           },
           acknowledgement: {
             header: 'submit.progressbar.describe.acknowledgement',
@@ -297,7 +321,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           identifiers: {
             header: 'submit.progressbar.describe.identifiers',
@@ -310,7 +334,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           references: {
             header: 'submit.progressbar.describe.references',
@@ -323,7 +347,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: false
+            isValid: false,
           },
           upload: {
             header: 'submit.progressbar.upload',
@@ -336,7 +360,7 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: true
+            isValid: true,
           },
           license: {
             header: 'submit.progressbar.license',
@@ -345,7 +369,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'license',
             visibility: {
               main: null,
-              other: 'READONLY'
+              other: 'READONLY',
             },
             collapsed: false,
             enabled: true,
@@ -353,14 +377,14 @@ describe('SubmissionService test suite', () => {
             errorsToShow: [],
             serverValidationErrors: [],
             isLoading: false,
-            isValid: true
-          }
+            isValid: true,
+          },
         },
         isLoading: false,
         savePending: false,
-        depositPending: false
-      }
-    }
+        depositPending: false,
+      },
+    },
   };
   const restService = new SubmissionRestServiceStub();
   const router = new RouterMock();
@@ -383,9 +407,9 @@ describe('SubmissionService test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: Router, useValue: router },
@@ -397,8 +421,8 @@ describe('SubmissionService test suite', () => {
         NotificationsService,
         RouteService,
         SubmissionService,
-        TranslateService
-      ]
+        TranslateService,
+      ],
     }).compileComponents();
   }));
 
@@ -475,7 +499,7 @@ describe('SubmissionService test suite', () => {
         submissionDefinition,
         {},
         new Item(),
-        null
+        null,
       );
       const expected = new InitSubmissionFormAction(
         collectionId,
@@ -492,7 +516,7 @@ describe('SubmissionService test suite', () => {
 
   describe('dispatchDeposit', () => {
     it('should dispatch a new SaveAndDepositSubmissionAction', () => {
-      service.dispatchDeposit(submissionId,);
+      service.dispatchDeposit(submissionId);
       const expected = new SaveAndDepositSubmissionAction(submissionId);
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
@@ -501,7 +525,7 @@ describe('SubmissionService test suite', () => {
 
   describe('dispatchDiscard', () => {
     it('should dispatch a new DiscardSubmissionAction', () => {
-      service.dispatchDiscard(submissionId,);
+      service.dispatchDiscard(submissionId);
       const expected = new DiscardSubmissionAction(submissionId);
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
@@ -526,7 +550,7 @@ describe('SubmissionService test suite', () => {
 
   describe('dispatchSaveForLater', () => {
     it('should dispatch a new SaveForLaterSubmissionFormAction', () => {
-      service.dispatchSaveForLater(submissionId,);
+      service.dispatchSaveForLater(submissionId);
       const expected = new SaveForLaterSubmissionFormAction(submissionId);
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
@@ -545,7 +569,7 @@ describe('SubmissionService test suite', () => {
   describe('getSubmissionObject', () => {
     it('should return submission object state from the store', () => {
       spyOn((service as any).store, 'select').and.returnValue(hot('a', {
-        a: subState.objects[826]
+        a: subState.objects[826],
       }));
 
       const result = service.getSubmissionObject('826');
@@ -558,7 +582,7 @@ describe('SubmissionService test suite', () => {
   describe('getActiveSectionId', () => {
     it('should return current active submission form section', () => {
       spyOn((service as any).store, 'select').and.returnValue(hot('a', {
-        a: subState.objects[826]
+        a: subState.objects[826],
       }));
 
       const result = service.getActiveSectionId('826');
@@ -573,7 +597,7 @@ describe('SubmissionService test suite', () => {
     it('should return submission form sections', () => {
       spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
       spyOn((service as any).store, 'select').and.returnValue(hot('a|', {
-        a: subState.objects[826]
+        a: subState.objects[826],
       }));
 
       const result = service.getSubmissionSections('826');
@@ -589,7 +613,7 @@ describe('SubmissionService test suite', () => {
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
-              serverValidationErrors: []
+              serverValidationErrors: [],
             },
             {
               header: 'submit.progressbar.describe.indexing',
@@ -599,7 +623,7 @@ describe('SubmissionService test suite', () => {
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
-              serverValidationErrors: []
+              serverValidationErrors: [],
             },
             {
               header: 'submit.progressbar.describe.publicationchannel',
@@ -609,7 +633,7 @@ describe('SubmissionService test suite', () => {
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
-              serverValidationErrors: []
+              serverValidationErrors: [],
             },
             {
               header: 'submit.progressbar.describe.acknowledgement',
@@ -619,7 +643,7 @@ describe('SubmissionService test suite', () => {
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
-              serverValidationErrors: []
+              serverValidationErrors: [],
             },
             {
               header: 'submit.progressbar.describe.identifiers',
@@ -629,7 +653,7 @@ describe('SubmissionService test suite', () => {
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
-              serverValidationErrors: []
+              serverValidationErrors: [],
             },
             {
               header: 'submit.progressbar.describe.references',
@@ -639,7 +663,7 @@ describe('SubmissionService test suite', () => {
               sectionType: 'submission-form',
               data: {},
               errorsToShow: [],
-              serverValidationErrors: []
+              serverValidationErrors: [],
             },
             {
               header: 'submit.progressbar.upload',
@@ -649,7 +673,7 @@ describe('SubmissionService test suite', () => {
               sectionType: 'upload',
               data: {},
               errorsToShow: [],
-              serverValidationErrors: []
+              serverValidationErrors: [],
             },
             {
               header: 'submit.progressbar.license',
@@ -659,9 +683,9 @@ describe('SubmissionService test suite', () => {
               sectionType: 'license',
               data: {},
               errorsToShow: [],
-              serverValidationErrors: []
-            }
-          ]
+              serverValidationErrors: [],
+            },
+          ],
       });
 
       expect(result).toBeObservable(expected);
@@ -671,7 +695,7 @@ describe('SubmissionService test suite', () => {
   describe('getDisabledSectionsList', () => {
     it('should return list of submission disabled sections', () => {
       spyOn((service as any).store, 'select').and.returnValue(hot('-a|', {
-        a: subState.objects[826]
+        a: subState.objects[826],
       }));
 
       const result = service.getDisabledSectionsList('826');
@@ -694,8 +718,8 @@ describe('SubmissionService test suite', () => {
             {
               header: 'submit.progressbar.describe.references',
               id: 'references',
-            }
-          ]
+            },
+          ],
       });
 
       expect(result).toBeObservable(expected);
@@ -744,12 +768,12 @@ describe('SubmissionService test suite', () => {
       spyOn(service, 'getSubmissionScope').and.returnValue(SubmissionScopeType.WorkspaceItem);
       spyOn((service as any).store, 'select').and.returnValue(hot('-a-b', {
         a: subState,
-        b: validSubState
+        b: validSubState,
       }));
       const result = service.getSubmissionStatus('826');
       const expected = cold('cc-d', {
         c: false,
-        d: true
+        d: true,
       });
 
       expect(result).toBeObservable(expected);
@@ -759,12 +783,12 @@ describe('SubmissionService test suite', () => {
   describe('getSubmissionSaveProcessingStatus', () => {
     it('should return submission save processing status', () => {
       spyOn((service as any).store, 'select').and.returnValue(hot('-a', {
-        a: subState.objects[826]
+        a: subState.objects[826],
       }));
 
       const result = service.getSubmissionSaveProcessingStatus('826');
       const expected = cold('bb', {
-        b: false
+        b: false,
       });
 
       expect(result).toBeObservable(expected);
@@ -774,12 +798,12 @@ describe('SubmissionService test suite', () => {
   describe('getSubmissionDepositProcessingStatus', () => {
     it('should return submission deposit processing status', () => {
       spyOn((service as any).store, 'select').and.returnValue(hot('-a', {
-        a: subState.objects[826]
+        a: subState.objects[826],
       }));
 
       const result = service.getSubmissionDepositProcessingStatus('826');
       const expected = cold('bb', {
-        b: false
+        b: false,
       });
 
       expect(result).toBeObservable(expected);
@@ -822,7 +846,7 @@ describe('SubmissionService test suite', () => {
             scope: SectionScope.Submission,
             visibility: {
               main: 'HIDDEN',
-          other: 'HIDDEN'
+              other: 'HIDDEN',
             },
           };
           expect(service.isSectionHidden(section)).toBeTrue();
@@ -1009,7 +1033,7 @@ describe('SubmissionService test suite', () => {
       const spy = spyOn(service, 'getSubmissionObject').and.returnValue(observableOf({ isLoading: true }));
 
       let expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSubmissionLoading(submissionId)).toBeObservable(expected);
@@ -1017,7 +1041,7 @@ describe('SubmissionService test suite', () => {
       spy.and.returnValue(observableOf({ isLoading: false }));
 
       expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSubmissionLoading(submissionId)).toBeObservable(expected);
@@ -1079,7 +1103,7 @@ describe('SubmissionService test suite', () => {
         selfUrl,
         submissionDefinition,
         {},
-        new Item()
+        new Item(),
       )
       ;
       const expected = new ResetSubmissionFormAction(
@@ -1088,7 +1112,7 @@ describe('SubmissionService test suite', () => {
         selfUrl,
         {},
         submissionDefinition,
-        new Item()
+        new Item(),
       );
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
@@ -1098,23 +1122,24 @@ describe('SubmissionService test suite', () => {
   describe('retrieveSubmission', () => {
     it('should retrieve submission from REST endpoint', () => {
       (service as any).restService.getDataById.and.returnValue(hot('a|', {
-        a: mockSubmissionRestResponse
+        a: mockSubmissionRestResponse,
       }));
 
       const result = service.retrieveSubmission('826');
       const expected = cold('(b|)', {
-        b: jasmine.objectContaining({ payload: mockSubmissionRestResponse[0] })
+        b: jasmine.objectContaining({ payload: mockSubmissionRestResponse[0] }),
       });
 
       expect(result).toBeObservable(expected);
     });
 
     it('should catch error from REST endpoint', () => {
+      const requestError = new RequestError('Internal Server Error');
+      requestError.statusCode = 500;
+      const errorResponse = new ErrorResponse(requestError);
+
       (service as any).restService.getDataById.and.callFake(
-        () => observableThrowError({
-          statusCode: 500,
-          errorMessage: 'Internal Server Error',
-        })
+        () => observableThrowError(errorResponse),
       );
 
       service.retrieveSubmission('826').subscribe((r) => {

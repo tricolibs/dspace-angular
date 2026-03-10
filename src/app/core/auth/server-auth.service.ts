@@ -1,25 +1,42 @@
-import { Injectable, Inject, Optional } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+
+import {
+  REQUEST,
+  RESPONSE,
+} from '../../../express.tokens';
+import { AppState } from '../../app.reducer';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteData } from '../data/remote-data';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { AuthService, LOGIN_ROUTE } from './auth.service';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { CookieService } from '../services/cookie.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { RouteService } from '../services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
+import {
+  AuthService,
+  LOGIN_ROUTE,
+} from './auth.service';
+import { AuthRequestService } from './auth-request.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { RemoteData } from '../data/remote-data';
-import { NativeWindowService, NativeWindowRef } from '../services/window.service';
-import { AuthRequestService } from './auth-request.service';
-import { EPersonDataService } from '../eperson/eperson-data.service';
-import { Router } from '@angular/router';
-import { RouteService } from '../services/route.service';
-import { CookieService } from '../services/cookie.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 
 /**
  * The auth service.
@@ -39,7 +56,7 @@ export class ServerAuthService extends AuthService {
     protected store: Store<AppState>,
     protected hardRedirectService: HardRedirectService,
     protected notificationService: NotificationsService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
     super(
       _window,
@@ -51,7 +68,7 @@ export class ServerAuthService extends AuthService {
       store,
       hardRedirectService,
       notificationService,
-      translateService
+      translateService,
     );
   }
 
@@ -95,7 +112,7 @@ export class ServerAuthService extends AuthService {
     options.headers = headers;
     options.withCredentials = true;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((rd: RemoteData<AuthStatus>) => Object.assign(new AuthStatus(), rd.payload))
+      map((rd: RemoteData<AuthStatus>) => Object.assign(new AuthStatus(), rd.payload)),
     );
   }
 

@@ -1,16 +1,22 @@
-import { AccessibilitySettingsComponent } from './accessibility-settings.component';
-import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
-import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { KlaroServiceStub } from '../../shared/cookies/klaro.service.stub';
+import { ContextHelpDirective } from 'src/app/shared/context-help.directive';
+
+import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
+import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
+import { AuthService } from '../../core/auth/auth.service';
 import { KlaroService } from '../../shared/cookies/klaro.service';
+import { KlaroServiceStub } from '../../shared/cookies/klaro.service.stub';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { AccessibilitySettingsComponent } from './accessibility-settings.component';
 
 
 describe('AccessibilitySettingsComponent', () => {
@@ -30,7 +36,6 @@ describe('AccessibilitySettingsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [AccessibilitySettingsComponent],
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: AccessibilitySettingsService, useValue: settingsService },
@@ -38,6 +43,10 @@ describe('AccessibilitySettingsComponent', () => {
         { provide: KlaroService, useValue: klaroService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(AccessibilitySettingsComponent, {
+      remove: {
+        imports: [ContextHelpDirective],
+      },
     }).compileComponents();
   }));
 

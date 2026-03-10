@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { AdminSearchPageComponent } from './admin-search-page.component';
 
@@ -6,8 +7,10 @@ import { AdminSearchPageComponent } from './admin-search-page.component';
  * Themed wrapper for {@link AdminSearchPageComponent}
  */
 @Component({
-  selector: 'ds-themed-admin-search-page',
+  selector: 'ds-admin-search-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [AdminSearchPageComponent],
 })
 export class ThemedAdminSearchPageComponent extends ThemedComponent<AdminSearchPageComponent> {
 

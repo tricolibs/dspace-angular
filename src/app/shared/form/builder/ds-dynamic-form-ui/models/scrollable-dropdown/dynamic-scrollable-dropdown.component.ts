@@ -1,34 +1,67 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
+  Inject,
+  Injector,
   Input,
   OnInit,
   Output,
   ViewChild,
-  ElementRef
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-
-import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { hasValue, isEmpty } from '../../../../../empty.util';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import {
-  PaginatedList,
-  buildPaginatedList
-} from '../../../../../../core/data/paginated-list.model';
-import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { FindAllData } from '../../../../../../core/data/base/find-all-data';
+  NgbDropdown,
+  NgbDropdownModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {
+  Observable,
+  of as observableOf,
+  of,
+} from 'rxjs';
+import {
+  catchError,
+  distinctUntilChanged,
+  map,
+  take,
+  tap,
+} from 'rxjs/operators';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from 'src/config/app-config.interface';
+
 import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
+import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
+import { lazyDataService } from '../../../../../../core/lazy-data-service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 
 /**
  * Component representing a dropdown input field
@@ -36,7 +69,17 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
   styleUrls: ['./dynamic-scrollable-dropdown.component.scss'],
-  templateUrl: './dynamic-scrollable-dropdown.component.html'
+  templateUrl: './dynamic-scrollable-dropdown.component.html',
+  imports: [
+    NgbDropdownModule,
+    NgIf,
+    AsyncPipe,
+    InfiniteScrollModule,
+    NgForOf,
+    TranslateModule,
+    BtnDisabledDirective,
+  ],
+  standalone: true,
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;
@@ -70,12 +113,15 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * If is provided in the config will be used for data loading in stead of the VocabularyService
    * @private
    */
-  private findAllService: FindAllData<CacheableObject>;
+  private findAllService: FindAllDataImpl<CacheableObject>;
 
-  constructor(protected vocabularyService: VocabularyService,
-              protected cdr: ChangeDetectorRef,
-              protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+  constructor(
+    protected vocabularyService: VocabularyService,
+    protected cdr: ChangeDetectorRef,
+    protected layoutService: DynamicFormLayoutService,
+    protected validationService: DynamicFormValidationService,
+    protected parentInjector: Injector,
+    @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap,
   ) {
     super(vocabularyService, layoutService, validationService);
   }
@@ -84,15 +130,21 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
-    this.findAllService = this.model?.findAllFactory();
-    this.useFindAllService = hasValue(this.findAllService?.findAll) && typeof this.findAllService.findAll === 'function';
+    const lazyProvider$: Observable<Cache> = hasValue(this.model.resourceType) ?
+      lazyDataService(this.dataServiceMap, this.model.resourceType.value, this.parentInjector) : of(null);
 
-    this.updatePageInfo(this.model.maxOptions, 1);
-    this.loadOptions(true);
-    this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
-    .subscribe((value) => {
-      this.setCurrentValue(value);
+    lazyProvider$.pipe(take(1)).subscribe((dataService) => {
+      this.findAllService = dataService as unknown as FindAllDataImpl<CacheableObject>;
+      this.useFindAllService = hasValue(this.findAllService?.findAll) && typeof this.findAllService.findAll === 'function';
+      this.updatePageInfo(this.model.maxOptions, 1);
+      this.loadOptions(true);
     });
+
+
+    this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
+      .subscribe((value) => {
+        this.setCurrentValue(value);
+      });
   }
 
   /**
@@ -114,15 +166,15 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       tap(() => this.loading = false),
     ).subscribe((list: PaginatedList<CacheableObject>) => {
       this.optionsList = list.page;
-        if (fromInit && this.model.value) {
-          this.setCurrentValue(this.model.value, true);
-        }
+      if (fromInit && this.model.value) {
+        this.setCurrentValue(this.model.value, true);
+      }
 
       this.updatePageInfo(
         list.pageInfo.elementsPerPage,
         list.pageInfo.currentPage,
         list.pageInfo.totalElements,
-        list.pageInfo.totalPages
+        list.pageInfo.totalPages,
       );
       this.selectedIndex = 0;
       this.cdr.detectChanges();
@@ -233,14 +285,14 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         this.pageInfo.elementsPerPage,
         this.pageInfo.currentPage + 1,
         this.pageInfo.totalElements,
-        this.pageInfo.totalPages
+        this.pageInfo.totalPages,
       );
       this.getDataFromService().pipe(
         getFirstSucceededRemoteDataPayload(),
         catchError(() => observableOf(buildPaginatedList(
           new PageInfo(),
-          []
-          ))
+          [],
+        )),
         ),
         tap(() => this.loading = false))
         .subscribe((list: PaginatedList<any>) => {
@@ -249,7 +301,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
             list.pageInfo.elementsPerPage,
             list.pageInfo.currentPage,
             list.pageInfo.totalElements,
-            list.pageInfo.totalPages
+            list.pageInfo.totalPages,
           );
           this.cdr.detectChanges();
         });
@@ -276,7 +328,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
 
     if (init && !this.useFindAllService) {
       result = this.getInitValueFromModel().pipe(
-        map((formValue: FormFieldMetadataValueObject) => formValue.display)
+        map((formValue: FormFieldMetadataValueObject) => formValue.display),
       );
     } else {
       if (isEmpty(value)) {

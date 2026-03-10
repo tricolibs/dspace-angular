@@ -1,43 +1,55 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 
-import { submissionReducers } from '../submission.reducers';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionService } from '../submission.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { SectionsService } from './sections.service';
+import { storeModuleConfig } from '../../app.reducer';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { FormClearErrorsAction } from '../../shared/form/form.actions';
+import { FormService } from '../../shared/form/form.service';
+import { getMockFormService } from '../../shared/mocks/form-service.mock';
+import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import {
   mockSectionsData,
   mockSectionsErrors,
   mockSubmissionState,
-  mockSubmissionStateWithoutUpload
+  mockSubmissionStateWithoutUpload,
 } from '../../shared/mocks/submission.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,
   EnableSectionAction,
   InertSectionErrorsAction,
   RemoveSectionErrorsAction,
   SectionStatusChangeAction,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
 } from '../objects/submission-objects.actions';
-import { FormClearErrorsAction } from '../../shared/form/form.actions';
-import parseSectionErrors from '../utils/parseSectionErrors';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
-import { storeModuleConfig } from '../../app.reducer';
-import { SectionsType } from './sections-type';
-import { FormService } from '../../shared/form/form.service';
-import { getMockFormService } from '../../shared/mocks/form-service.mock';
 import { SubmissionSectionError } from '../objects/submission-section-error.model';
-import { SectionScope } from '../objects/section-visibility.model';
+import { submissionReducers } from '../submission.reducers';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrors from '../utils/parseSectionErrors';
+import { SectionsService } from './sections.service';
+import { SectionsType } from './sections-type';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;
@@ -57,7 +69,7 @@ describe('SectionsService test suite', () => {
 
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
+    select: jasmine.createSpy('select'),
   });
 
   const formService: any = getMockFormService();
@@ -69,9 +81,9 @@ describe('SectionsService test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
@@ -80,8 +92,8 @@ describe('SectionsService test suite', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Store, useValue: store },
         { provide: FormService, useValue: formService },
-        SectionsService
-      ]
+        SectionsService,
+      ],
     }).compileComponents();
   }));
 
@@ -162,7 +174,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(sectionData[sectionId]));
 
       const expected = cold('(b|)', {
-        b: sectionData[sectionId]
+        b: sectionData[sectionId],
       });
 
       expect(service.getSectionData(submissionId, sectionId, SectionsType.SubmissionForm)).toBeObservable(expected);
@@ -174,7 +186,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(sectionErrors[sectionId]));
 
       const expected = cold('(b|)', {
-        b: sectionErrors[sectionId]
+        b: sectionErrors[sectionId],
       });
 
       expect(service.getSectionErrors(submissionId, sectionId)).toBeObservable(expected);
@@ -186,7 +198,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(sectionState));
 
       const expected = cold('(b|)', {
-        b: sectionState
+        b: sectionState,
       });
 
       expect(service.getSectionState(submissionId, sectionId, SectionsType.SubmissionForm)).toBeObservable(expected);
@@ -198,7 +210,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf({ isValid: false }));
 
       let expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionValid(submissionId, sectionId)).toBeObservable(expected);
@@ -206,7 +218,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf({ isValid: true }));
 
       expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSectionValid(submissionId, sectionId)).toBeObservable(expected);
@@ -218,7 +230,7 @@ describe('SectionsService test suite', () => {
       submissionServiceStub.getActiveSectionId.and.returnValue(observableOf(sectionId));
 
       let expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSectionActive(submissionId, sectionId)).toBeObservable(expected);
@@ -226,7 +238,7 @@ describe('SectionsService test suite', () => {
       submissionServiceStub.getActiveSectionId.and.returnValue(observableOf('test'));
 
       expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionActive(submissionId, sectionId)).toBeObservable(expected);
@@ -238,7 +250,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf({ enabled: false }));
 
       let expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionEnabled(submissionId, sectionId)).toBeObservable(expected);
@@ -246,7 +258,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf({ enabled: true }));
 
       expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSectionEnabled(submissionId, sectionId)).toBeObservable(expected);
@@ -352,12 +364,12 @@ describe('SectionsService test suite', () => {
             scope: SectionScope.Workflow,
             visibility: {
               main: null,
-          other: 'READONLY'
-        }
+              other: 'READONLY',
+            },
           }));
 
           const expected = cold('(b|)', {
-        b: true
+            b: true,
           });
 
           expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
@@ -430,8 +442,8 @@ describe('SectionsService test suite', () => {
             scope: SectionScope.Submission,
             visibility: {
               main: null,
-          other: 'READONLY'
-        }
+              other: 'READONLY',
+            },
           }));
 
           const expected = cold('(b|)', {
@@ -447,7 +459,7 @@ describe('SectionsService test suite', () => {
           }));
 
           const expected = cold('(b|)', {
-        b: false
+            b: false,
           });
 
           expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
@@ -524,7 +536,7 @@ describe('SectionsService test suite', () => {
           }));
 
           const expected = cold('(b|)', {
-        b: false
+            b: false,
           });
 
           expect(service.isSectionReadOnly(submissionId, sectionId, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
@@ -538,7 +550,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(submissionState));
 
       const expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSectionAvailable(submissionId, sectionId)).toBeObservable(expected);
@@ -548,7 +560,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(submissionState));
 
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionAvailable(submissionId, 'test')).toBeObservable(expected);
@@ -560,7 +572,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(submissionState));
 
       const expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSectionTypeAvailable(submissionId, SectionsType.Upload)).toBeObservable(expected);
@@ -570,7 +582,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(submissionStateWithoutUpload));
 
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionAvailable(submissionId, SectionsType.Upload)).toBeObservable(expected);
@@ -582,7 +594,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(submissionState));
 
       const expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSectionType(submissionId, 'upload', SectionsType.Upload)).toBeObservable(expected);
@@ -592,7 +604,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(submissionState));
 
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionType(submissionId, sectionId, SectionsType.Upload)).toBeObservable(expected);
@@ -602,7 +614,7 @@ describe('SectionsService test suite', () => {
       store.select.and.returnValue(observableOf(submissionState));
 
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionType(submissionId, 'no-such-id', SectionsType.Upload)).toBeObservable(expected);
@@ -633,7 +645,7 @@ describe('SectionsService test suite', () => {
 
       const error: SubmissionSectionError = {
         path: 'test',
-        message: 'message test'
+        message: 'message test',
       };
       service.setSectionError(submissionId, sectionId, error);
 
@@ -683,10 +695,10 @@ describe('SectionsService test suite', () => {
         rows: [{
           fields: [{
             selectableMetadata: [{
-              metadata: 'dc.contributor.author'
-            }]
-          }]
-        }]
+              metadata: 'dc.contributor.author',
+            }],
+          }],
+        }],
       };
 
       const expectedConfiguredMetadata =  [ 'dc.contributor.author' ];

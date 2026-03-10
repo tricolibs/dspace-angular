@@ -1,5 +1,5 @@
-<div class="row" *ngIf="!!submissionId">
-  <div class="col">
+<div class="d-flex flex-row gap-1 justify-content-between" *ngIf="!!submissionId">
+  <div class="flex-grow-0">
     <button *ngIf="(showDepositAndDiscard | async)"
             type="button"
             id="discard"
@@ -10,11 +10,11 @@
       <i class="fas fa-trash"></i> {{'submission.general.discard.submit' | translate}}
     </button>
   </div>
-  <div class="col text-right d-flex justify-content-end align-items-center">
-    <span *ngIf="!(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async)">
+  <div class="text-right d-flex justify-content-end align-items-center">
+    <span *ngIf="(hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true">
       <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}
     </span>
-    <span *ngIf="(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async)">
+    <span *ngIf="(hasUnsavedModification | async) && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true">
       <i class="fas fa-exclamation-circle"></i> {{'submission.general.info.pending-changes' | translate}}
     </span>
     <div *ngIf="(processingSaveStatus | async) || (processingDepositStatus | async)" class="col d-flex justify-content-end align-items-center">
@@ -28,12 +28,12 @@
               class="btn btn-secondary"
               id="save"
               [attr.data-test]="'save' | dsBrowserOnly"
-              [dsBtnDisabled]="(processingSaveStatus | async) || !(hasUnsavedModification | async)"
+              [dsBtnDisabled]="(processingSaveStatus | async) || (hasUnsavedModification | async) !== true"
               (click)="save($event)">
         <span><i class="fas fa-save"></i> {{'submission.general.save' | translate}}</span>
       </button>
       <button type="button"
-              [class.btn-primary]="!(showDepositAndDiscard | async)"
+              [class.btn-primary]="(showDepositAndDiscard | async) !== true"
               [class.btn-secondary]="(showDepositAndDiscard | async)"
               class="btn"
               id="saveForLater"

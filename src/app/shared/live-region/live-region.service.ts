@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, switchMap, take, timer } from 'rxjs';
+import {
+  BehaviorSubject,
+  map,
+  Observable,
+  switchMap,
+  take,
+  timer,
+} from 'rxjs';
+
 import { environment } from '../../../environments/environment';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 export const MIN_MESSAGE_DURATION = 200;
 

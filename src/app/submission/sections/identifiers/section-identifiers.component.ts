@@ -1,14 +1,29 @@
-import {ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-import { SectionsType } from '../sections-type';
-import { SectionModelComponent } from '../models/section.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionDataObject } from '../models/section-data.model';
-import { SubmissionService } from '../../submission.service';
-import { SectionsService } from '../sections.service';
 import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { SubmissionService } from '../../submission.service';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
 
 /**
  * This simple component displays DOI, handle and other identifiers that are already minted for the item in
@@ -20,11 +35,18 @@ import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/
 @Component({
   selector: 'ds-submission-section-identifiers',
   templateUrl: './section-identifiers.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    TranslateModule,
+    NgForOf,
+    NgIf,
+    AsyncPipe,
+    VarDirective,
+  ],
+  standalone: true,
 })
 
-@renderSectionFor(SectionsType.Identifiers)
-export class SubmissionSectionIdentifiersComponent extends SectionModelComponent {
+export class SubmissionSectionIdentifiersComponent extends SectionModelComponent implements OnInit {
 
   /**
    * Variable to track if the section is loading.
@@ -41,7 +63,6 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
   /**
    * Initialize instance variables.
    *
-   * @param {PaginationService} paginationService
    * @param {TranslateService} translate
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService

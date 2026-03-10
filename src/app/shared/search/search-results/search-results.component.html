@@ -1,3 +1,15 @@
+@if ((activeFilters$ | async).length > 0 && (appliedFilters$ | async).length === 0) {
+  <div class="row">
+    <div class="col-12">
+      <div class="filters-badge-skeleton-container">
+          <div class="filter-badge-skeleton">
+            <ngx-skeleton-loader [count]="(activeFilters$ | async).length" />
+          </div>
+      </div>
+    </div>
+  </div>
+}
+
 <div class="d-flex justify-content-between">
     <h1 *ngIf="!disableHeader">{{ (configuration ? configuration + '.search.results.head' : 'search.results.head') | translate }}</h1>
     <ds-search-export-csv *ngIf="showCsvExport" [total]="searchResults?.payload?.totalElements"
@@ -29,11 +41,13 @@
 
 <ds-error *ngIf="showError()"
           message="{{errorMessageLabel() | translate}}"></ds-error>
-<div *ngIf="searchResults?.payload?.page.length == 0 || searchResults?.statusCode == 400">
+<div *ngIf="searchResults?.payload?.page.length === 0 || searchResults?.statusCode === 400">
     {{ 'search.results.no-results' | translate }}
     <a [routerLink]="['/search']"
        [queryParams]="{ query: surroundStringWithQuotes(searchConfig?.query) }"
-       queryParamsHandling="merge" role="link" tabindex="0">
+       queryParamsHandling="merge"
+       role="link"
+       tabindex="0">
         {{"search.results.no-results-link" | translate}}
     </a>
 </div>

@@ -1,5 +1,5 @@
-<div class="navbar-nav mr-auto" *ngIf="!(isMobile$ | async); else mobileButtons" data-test="auth-nav">
-  <div *ngIf="!(isAuthenticated$ | async) && showAuth$ | async"
+<div class="navbar-nav mr-auto" *ngIf="(isMobile$ | async) === false; else mobileButtons" data-test="auth-nav">
+  <div *ngIf="(isAuthenticated$ | async) === false && showAuth$ | async"
        class="nav-item"
        (click)="$event.stopPropagation();">
     <div ngbDropdown #loginDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block"
@@ -18,13 +18,13 @@
            role="dialog"
            aria-modal="true"
            [attr.aria-label]="'nav.login' | translate">
-        <ds-themed-log-in
-          [isStandalonePage]="false"></ds-themed-log-in>
+        <ds-log-in
+          [isStandalonePage]="false"></ds-log-in>
       </div>
     </div>
   </div>
   <div *ngIf="(isAuthenticated$ | async) && showAuth$ | async" class="nav-item">
-    <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
+    <div ngbDropdown #loggedInDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
       <button
         role="button"
         tabindex="0"
@@ -36,14 +36,14 @@
         ngbDropdownToggle>
         <i class="fas fa-user-circle fa-lg fa-fw"></i></button>
       <div id="logoutDropdownMenu" ngbDropdownMenu>
-        <ds-user-menu [inExpandableNavbar]="false"></ds-user-menu>
+        <ds-user-menu [inExpandableNavbar]="false" (changedRoute)="loggedInDrop.close()"></ds-user-menu>
       </div>
     </div>
   </div>
 </div>
 <ng-template #mobileButtons>
   <div data-test="auth-nav">
-    <a *ngIf="!(isAuthenticated$ | async)" routerLink="/login" routerLinkActive="active" class="loginLink px-0.5"
+    <a *ngIf="(isAuthenticated$ | async) === false" routerLink="/login" routerLinkActive="active" class="loginLink px-0.5"
        role="link"
        tabindex="0">
       {{ 'nav.login' | translate }}<span class="sr-only">(current)</span>

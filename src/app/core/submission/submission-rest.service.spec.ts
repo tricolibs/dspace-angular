@@ -1,21 +1,21 @@
-import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionRestService } from './submission-rest.service';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import {
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
   SubmissionPostRequest,
-  SubmissionRequest
+  SubmissionRequest,
 } from '../data/request.models';
-import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
-import { of } from 'rxjs';
+import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
+import { SubmissionRestService } from './submission-rest.service';
 
 describe('SubmissionRestService test suite', () => {
   let scheduler: TestScheduler;
@@ -35,7 +35,7 @@ describe('SubmissionRestService test suite', () => {
     return new SubmissionRestService(
       rdbService,
       requestService,
-      halService
+      halService,
     );
   }
 

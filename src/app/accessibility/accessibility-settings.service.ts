@@ -1,17 +1,37 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { Observable, of, switchMap, combineLatest } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { CookieService } from '../core/services/cookie.service';
-import { hasValue, isNotEmpty, hasNoValue } from '../shared/empty.util';
-import { AuthService } from '../core/auth/auth.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
 import cloneDeep from 'lodash/cloneDeep';
+import {
+  combineLatest,
+  Observable,
+  of,
+  switchMap,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { environment } from '../../environments/environment';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { AuthService } from '../core/auth/auth.service';
+import { EPersonDataService } from '../core/eperson/eperson-data.service';
+import { EPerson } from '../core/eperson/models/eperson.model';
+import { CookieService } from '../core/services/cookie.service';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { KlaroService } from '../shared/cookies/klaro.service';
-import { AppConfig, APP_CONFIG } from '../../config/app-config.interface';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 /**
  * Name of the cookie used to store the settings locally
@@ -61,7 +81,7 @@ export interface AccessibilitySettingsFormValues {
  * the user is authenticated.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccessibilitySettingsService {
 
@@ -122,7 +142,7 @@ export class AccessibilitySettingsService {
       take(1),
       map(user => hasValue(user) && hasValue(user.firstMetadataValue(ACCESSIBILITY_SETTINGS_METADATA_KEY)) ?
         JSON.parse(user.firstMetadataValue(ACCESSIBILITY_SETTINGS_METADATA_KEY)) :
-        {}
+        {},
       ),
     );
   }
@@ -154,7 +174,7 @@ export class AccessibilitySettingsService {
       take(1),
       map(saveLocation => saveLocation === 'metadata'),
       switchMap((savedInMetadata) =>
-        savedInMetadata ? ofMetadata() : this.setSettingsInCookie(settings)
+        savedInMetadata ? ofMetadata() : this.setSettingsInCookie(settings),
       ),
     );
   }
@@ -171,7 +191,7 @@ export class AccessibilitySettingsService {
     return this.getAll().pipe(
       take(1),
       map(currentSettings => Object.assign({}, currentSettings, settings)),
-      switchMap(newSettings => this.setSettings(newSettings))
+      switchMap(newSettings => this.setSettings(newSettings)),
     );
   }
 
@@ -191,7 +211,7 @@ export class AccessibilitySettingsService {
         } else {
           return ofFailed();
         }
-      })
+      }),
     );
   }
 

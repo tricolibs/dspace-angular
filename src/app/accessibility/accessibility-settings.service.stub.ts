@@ -1,4 +1,5 @@
 import { of } from 'rxjs';
+
 import { AccessibilitySettingsService } from './accessibility-settings.service';
 
 export function getAccessibilitySettingsServiceStub(): AccessibilitySettingsService {

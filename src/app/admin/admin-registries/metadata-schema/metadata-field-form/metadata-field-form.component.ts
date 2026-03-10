@@ -1,23 +1,46 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicInputModel,
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { MetadataField } from '../../../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { take } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { MetadataField } from '../../../../core/metadata/metadata-field.model';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 @Component({
   selector: 'ds-metadata-field-form',
-  templateUrl: './metadata-field-form.component.html'
+  templateUrl: './metadata-field-form.component.html',
+  imports: [
+    NgIf,
+    FormComponent,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 /**
  * A form used for creating and editing metadata fields
@@ -65,19 +88,19 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     element: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     qualifier: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     scopeNote: {
       grid: {
-        host: 'col col-sm-12 d-inline-block'
-      }
-    }
+        host: 'col col-sm-12 d-inline-block',
+      },
+    },
   };
 
   /**
@@ -100,7 +123,8 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
   /**
    * Initialize the component, setting up the necessary Models for the dynamic form
    */
-  ngOnInit() {
+  ngOnInit(): void {
+    this.activeMetadataField$ = this.registryService.getActiveMetadataField();
     this.element = new DynamicInputModel({
       id: 'element',
       label: this.translateService.instant(`${this.messagePrefix}.element`),
@@ -139,10 +163,10 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
     });
     this.formModel = [
       new DynamicFormGroupModel(
-      {
-        id: 'metadatadatafieldgroup',
-        group:[this.element, this.qualifier, this.scopeNote]
-      })
+        {
+          id: 'metadatadatafieldgroup',
+          group:[this.element, this.qualifier, this.scopeNote],
+        }),
     ];
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
     this.registryService.getActiveMetadataField().subscribe((field: MetadataField): void => {
@@ -198,7 +222,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
         }
         this.clearFields();
         this.registryService.cancelEditMetadataField();
-      }
+      },
     );
   }
 

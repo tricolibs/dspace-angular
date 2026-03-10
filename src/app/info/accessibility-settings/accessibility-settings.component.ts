@@ -1,23 +1,57 @@
-import { Component, OnDestroy, OnInit, Optional } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  Optional,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import {
+  BehaviorSubject,
+  Subscription,
+  take,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+import { AlertType } from 'src/app/shared/alert/alert-type';
+
 import {
   AccessibilitySetting,
-  AccessibilitySettingsService,
   AccessibilitySettingsFormValues,
+  AccessibilitySettingsService,
 } from '../../accessibility/accessibility-settings.service';
-import { BehaviorSubject, distinctUntilChanged, map, Subscription, take } from 'rxjs';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { hasValue, isEmpty } from 'src/app/shared/empty.util';
-import { AlertType } from '../../shared/alert/alert-type';
+import { AuthService } from '../../core/auth/auth.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { ContextHelpDirective } from '../../shared/context-help.directive';
 import { KlaroService } from '../../shared/cookies/klaro.service';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component providing the form where users can update accessibility settings.
  */
 @Component({
   selector: 'ds-accessibility-settings',
-  templateUrl: './accessibility-settings.component.html'
+  templateUrl: './accessibility-settings.component.html',
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FormsModule,
+    UiSwitchModule,
+    ContextHelpDirective,
+    AlertComponent,
+  ],
+  standalone: true,
 })
 export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
   // Redeclared for use in template
@@ -52,7 +86,7 @@ export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
         this.klaroService.getSavedPreferences().pipe(
           map(preferences => preferences?.accessibility === true),
           distinctUntilChanged(),
-        ).subscribe(val => this.cookieIsAccepted.next(val))
+        ).subscribe(val => this.cookieIsAccepted.next(val)),
       );
     } else {
       this.cookieIsAccepted.next(false);

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 
@@ -6,8 +7,10 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
  * Themed wrapper for {@link AdminWorkflowPageComponent}
  */
 @Component({
-  selector: 'ds-themed-admin-workflow-page',
+  selector: 'ds-admin-workflow-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [AdminWorkflowPageComponent],
 })
 export class ThemedAdminWorkflowPageComponent extends ThemedComponent<AdminWorkflowPageComponent> {
 

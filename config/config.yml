@@ -2,15 +2,15 @@ themes:
   - name: fmst
     extends: trico
     handle: '10066/9239'
-  
+
   - name: wnr
     extends: trico
     handle: '10066/10922'
-  
+
   - name: music
     extends: trico
     handle: '10066/11815'
-  
+
   - name: sncc
     extends: trico
     handle: '10066/10732'
@@ -18,11 +18,11 @@ themes:
   - name: dance
     extends: trico
     handle: '10066/11814'
-  
+
   - name: folk-music
     extends: trico
     handle: '10066/13897'
-    
+
   - name: trico
     extends: BASE_THEME_NAME
     headTags:
@@ -45,9 +45,8 @@ info:
   enableEndUserAgreement: false
   enablePrivacyStatement: false
 
-## From 7.6.3
-#   rest:
-#   ssl: true
-#   host: demo.dspace.org
-#   port: 443
-#   nameSpace: /server
+#rest:
+#  ssl: true
+#  host: sandbox.dspace.org
+#  port: 443
+#  nameSpace: /server
