@@ -116,7 +116,7 @@ export class MetadataValuesComponent implements OnChanges {
    * @param value the specific metadata value being linked
    */
   getQueryParams(value) {
-    const queryParams = {startsWith: value};
+    const queryParams = { startsWith: value };
     // Trico mod - for things that aren't dates we still want to link the value, even if in a list
     if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value ||
       this.browseDefinition.getRenderType() !== 'date') {

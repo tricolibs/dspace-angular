@@ -1,8 +1,9 @@
 import {
   AsyncPipe,
   DOCUMENT,
-    isPlatformBrowser,
-    isPlatformServer
+  isPlatformBrowser,
+  isPlatformServer,
+  NgStyle,
 } from '@angular/common';
 import {
   AfterViewInit,
@@ -63,6 +64,7 @@ import { ThemeService } from './shared/theme-support/theme.service';
   imports: [
     ThemedRootComponent,
     AsyncPipe,
+    NgStyle,
   ],
 })
 export class AppComponent implements OnInit, AfterViewInit {
