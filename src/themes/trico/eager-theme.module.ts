@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../app/shared/shared.module';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { SearchNavbarComponent } from './app/search-navbar/search-navbar.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
 import { RootModule } from '../../app/root.module';
-import { NavbarModule } from '../../app/navbar/navbar.module';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
-import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { FooterComponent } from './app/footer/footer.component';
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import {
@@ -19,7 +16,6 @@ import {
   JournalVolumeComponent
 } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
-import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import {
     CreateCollectionParentSelectorComponent
 } from './app/shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
@@ -42,9 +38,6 @@ import {
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent} from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
 
 
@@ -84,14 +77,7 @@ const DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
     RootModule,
-    NavbarModule,
-    SharedBrowseByModule,
-    ResultsBackButtonModule,
-    ItemPageModule,
-    ItemSharedModule,
-    DsoPageModule,
   ],
   declarations: DECLARATIONS,
   providers: [
