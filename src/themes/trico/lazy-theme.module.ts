@@ -6,7 +6,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
+// import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
