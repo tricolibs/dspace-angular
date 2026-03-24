@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminSearchModule } from '../../app/admin/admin-search-page/admin-search.module';
-import { AdminWorkflowModuleModule } from '../../app/admin/admin-workflow-page/admin-workflow.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,7 +14,6 @@ import { RootModule } from '../../app/root.module';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { HomePageComponent } from './app/home-page/home-page.component';
 import { RootComponent } from './app/root/root.component';
-import { BrowseBySwitcherComponent } from './app/browse-by/browse-by-switcher/browse-by-switcher.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
@@ -45,11 +42,6 @@ import { ForgotPasswordFormComponent } from './app/forgot-password/forgot-passwo
 import { ProfilePageComponent } from './app/profile-page/profile-page.component';
 import { RegisterEmailComponent } from './app/register-page/register-email/register-email.component';
 import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.component';
-import { SubmissionEditComponent } from './app/submission/edit/submission-edit.component';
-import {
-  SubmissionImportExternalComponent
-} from './app/submission/import-external/submission-import-external.component';
-import { SubmissionSubmitComponent } from './app/submission/submit/submission-submit.component';
 import { WorkflowItemDeleteComponent
 } from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
 import {
@@ -59,7 +51,6 @@ import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 
-import { ComcolPageHandleComponent } from './app/shared/comcol-page-handle/comcol-page-handle.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 import {
   ExpandableNavbarSectionComponent
@@ -70,103 +61,74 @@ import {
 import { LoadingComponent } from './app/shared/loading/loading.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
-import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/comcol-page-browse-by.component';
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
-import {
-  CommunityPageSubCommunityListComponent
-} from './app/community-page/sub-community-list/community-page-sub-community-list.component';
-import {
-  CommunityPageSubCollectionListComponent
-} from './app/community-page/sub-collection-list/community-page-sub-collection-list.component';
 import { ObjectListComponent } from './app/shared/object-list/object-list.component';
-
-import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
-import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
-import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
-import {
-  ExternalSourceEntryImportModalComponent
-} from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
 import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 
 const DECLARATIONS = [
-  FileSectionComponent,
-  HomePageComponent,
-  RootComponent,
-  BrowseBySwitcherComponent,
-  CommunityListPageComponent,
-  SearchPageComponent,
-  ConfigurationSearchPageComponent,
-  EndUserAgreementComponent,
-  PageNotFoundComponent,
-  ObjectNotFoundComponent,
-  ForbiddenComponent,
-  PrivacyComponent,
-  CollectionStatisticsPageComponent,
-  CommunityStatisticsPageComponent,
-  ItemStatisticsPageComponent,
-  SiteStatisticsPageComponent,
-  CommunityPageComponent,
-  CommunityPageSubCommunityListComponent,
-  CommunityPageSubCollectionListComponent,
-  CollectionPageComponent,
-  ItemPageComponent,
-  FullItemPageComponent,
-  LoginPageComponent,
-  LogoutPageComponent,
-  CreateProfileComponent,
-  ForgotEmailComponent,
-  ForgotPasswordFormComponent,
-  ProfilePageComponent,
-  RegisterEmailComponent,
-  MyDSpacePageComponent,
-  SubmissionEditComponent,
-  SubmissionImportExternalComponent,
-  SubmissionSubmitComponent,
-  WorkflowItemDeleteComponent,
-  WorkflowItemSendBackComponent,
-  BreadcrumbsComponent,
-  FeedbackComponent,
-  CommunityListComponent,
-  ComcolPageHandleComponent,
-  AuthNavMenuComponent,
-  ExpandableNavbarSectionComponent,
-  EditItemTemplatePageComponent,
-  LoadingComponent,
-  SearchResultsComponent,
   AdminSidebarComponent,
-  SearchSettingsComponent,
-  ComcolPageBrowseByComponent,
-  ObjectListComponent,
-  BrowseByMetadataPageComponent,
-  BrowseByDatePageComponent,
-  BrowseByTitlePageComponent,
-  ExternalSourceEntryImportModalComponent,
-  ResultsBackButtonComponent,
-  DsoEditMetadataComponent,
+  LoadingComponent,
 ];
 
 @NgModule({
   imports: [
-    AdminSearchModule,
-    AdminWorkflowModuleModule,
-    RootModule,
+    AuthNavMenuComponent,
+    BreadcrumbsComponent,
+    CollectionPageComponent,
+    CollectionStatisticsPageComponent,
     CommonModule,
+    CommunityListComponent,
+    CommunityListPageComponent,
+    CommunityPageComponent,
+    CommunityStatisticsPageComponent,
+    ConfigurationSearchPageComponent,
+    CreateProfileComponent,
     DragDropModule,
+    DsoEditMetadataComponent,
+    EditItemTemplatePageComponent,
+    EndUserAgreementComponent,
+    ExpandableNavbarSectionComponent,
+    FeedbackComponent,
+    FileSectionComponent,
+    ForbiddenComponent,
+    ForgotEmailComponent,
+    ForgotPasswordFormComponent,
     FormsModule,
+    FormsModule,
+    FullItemPageComponent,
+    HomePageComponent,
     HttpClientModule,
+    ItemPageComponent,
+    ItemStatisticsPageComponent,
+    LoginPageComponent,
+    LogoutPageComponent,
+    MyDSpacePageComponent,
     NgbModule,
-    RegisterEmailFormModule,
+    ObjectListComponent,
+    ObjectNotFoundComponent,
+    PageNotFoundComponent,
+    PrivacyComponent,
+    ProfilePageComponent,
+    RegisterEmailComponent,
+    ResultsBackButtonComponent,
+    RootComponent,
+    RootModule,
     RouterModule,
     ScrollToModule,
+    SearchPageComponent,
+    SearchResultsComponent,
+    SearchSettingsComponent,
+    SiteStatisticsPageComponent,
     StoreModule,
     StoreRouterConnectingModule,
     TranslateModule,
-    FormsModule,
+    WorkflowItemDeleteComponent,
+    WorkflowItemSendBackComponent,
+  //  RegisterEmailFormModule,
   ],
   declarations: DECLARATIONS,
   exports: [
-    CommunityPageSubCollectionListComponent
   ]
 })
 
