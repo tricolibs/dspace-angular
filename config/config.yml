@@ -24,7 +24,7 @@ themes:
     handle: '10066/13897'
 
   - name: trico
-    extends: BASE_THEME_NAME
+    extends: custom
     headTags:
       # Insert <link rel="icon" href="assets/trico/images/favicons/favicon.ico" sizes="any"/> into the <head> of the page.
     - tagName: link
