@@ -6,7 +6,7 @@
   <ng-container *ngFor="let authMethod of (authMethods | async); let i = index; let last = last">
     <div *ngIf="i === 1" class="text-center mt-2 mb-3">
       <hr>
-      <span class="align-middle">{{"login.form.or-divider" | translate}</span>
+      <span class="align-middle">{{ "login.form.or-divider" | translate }}</span>
     </div>
     <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
     <div *ngIf="!last" class="dropdown-divider my-2"></div>
