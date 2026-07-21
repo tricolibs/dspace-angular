@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLogInComponent } from 'src/app/shared/log-in/themed-log-in.component';
+import { ThemedLogInComponent } from '../../../../app/shared/log-in/themed-log-in.component';
 
 import { LoginPageComponent as BaseComponent } from '../../../../app/login-page/login-page.component';
 
