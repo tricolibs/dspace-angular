@@ -9,7 +9,7 @@ import { listableObjectComponent } from '../../../../../../app/shared/object-col
 import {Context} from '../../../../../../app/core/shared/context.model';
 import { NgIf } from '@angular/common';
 
-@listableObjectComponent(Community,  ViewMode.ListElement, Context.Any, 'custom')
+@listableObjectComponent(Community,  ViewMode.ListElement, Context.Any, 'trico')
 
 @Component({
     selector: 'ds-community-list-element',

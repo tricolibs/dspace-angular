@@ -33,7 +33,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
 /**
  * Component that represents an untyped Item page
  */
-@listableObjectComponent(Item, ViewMode.StandalonePage, Context.Any, 'custom')
+@listableObjectComponent(Item, ViewMode.StandalonePage, Context.Any, 'music')
 @Component({
   selector: 'ds-untyped-item',
   // styleUrls: ['./untyped-item.component.scss'],

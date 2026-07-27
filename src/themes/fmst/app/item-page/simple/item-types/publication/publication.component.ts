@@ -33,7 +33,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
  * Component that represents a publication Item page
  */
 
-@listableObjectComponent('Publication', ViewMode.StandalonePage, Context.Any, 'custom')
+@listableObjectComponent('Publication', ViewMode.StandalonePage, Context.Any, 'fmst')
 @Component({
   selector: 'ds-publication',
   // styleUrls: ['./publication.component.scss'],

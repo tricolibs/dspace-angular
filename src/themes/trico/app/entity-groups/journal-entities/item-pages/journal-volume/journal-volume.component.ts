@@ -18,7 +18,7 @@ import { listableObjectComponent } from '../../../../../../../app/shared/object-
 import { ThemedResultsBackButtonComponent } from '../../../../../../../app/shared/results-back-button/themed-results-back-button.component';
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
 
-@listableObjectComponent('JournalVolume', ViewMode.StandalonePage, Context.Any, 'custom')
+@listableObjectComponent('JournalVolume', ViewMode.StandalonePage, Context.Any, 'trico')
 @Component({
     selector: 'ds-journal-volume',
     // styleUrls: ['./journal-volume.component.scss'],

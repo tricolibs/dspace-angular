@@ -11,7 +11,7 @@ import {
 import {Context} from '../../../../../../app/core/shared/context.model';
 import { NgIf } from '@angular/common';
 
-@listableObjectComponent(Collection, ViewMode.ListElement, Context.Any, 'custom')
+@listableObjectComponent(Collection, ViewMode.ListElement, Context.Any, 'trico')
 
 @Component({
     selector: 'ds-collection-list-element',
