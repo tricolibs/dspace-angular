@@ -25,7 +25,6 @@ import * as ejs from 'ejs';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
-import axios from 'axios';
 import LRU from 'lru-cache';
 import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
@@ -59,6 +58,7 @@ import {
   RESPONSE,
 } from './src/express.tokens';
 import { SsrExcludePatterns } from "./src/config/ssr-config.interface";
+import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
 
 /*
  * Set path for the browser application's dist folder
@@ -71,7 +71,11 @@ const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
-const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
+const configJson = join(DIST_FOLDER, 'assets/config.json');
+const hashedFileMapping = new ServerHashedFileMapping(DIST_FOLDER, 'index.html');
+const appConfig: AppConfig = buildAppConfig(configJson, hashedFileMapping);
+appConfig.themes.forEach(themeConfig => hashedFileMapping.addThemeStyle(themeConfig.name, themeConfig.prefetch));
+hashedFileMapping.save();
 
 // cache of SSR pages for known bots, only enabled in production mode
 let botCache: LRU<string, any>;
@@ -147,7 +151,7 @@ export function app() {
   server.get('/robots.txt', (req, res) => {
     res.setHeader('content-type', 'text/plain');
     res.render('assets/robots.txt.ejs', {
-      'origin': req.protocol + '://' + req.headers.host,
+      'origin': environment.ui.baseUrl,
     });
   });
 
@@ -319,15 +323,14 @@ function clientSideRender(req, res) {
   // Replace base href dynamically
   html = html.replace(
     /<base href="[^"]*">/,
-    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`
+    `<base href="${namespace.endsWith('/') ? namespace : namespace + '/'}">`,
   );
 
   // Replace REST URL with UI URL
   if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
     html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
   }
-
-  res.send(html);
+  res.set('Cache-Control', 'no-cache, no-store').send(html);
 }
 
 
@@ -338,7 +341,11 @@ function clientSideRender(req, res) {
  */
 function addCacheControl(req, res, next) {
   // instruct browser to revalidate
-  res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  if (environment.cache.noCacheFiles.includes(req.originalUrl)) {
+    res.header('Cache-Control', 'no-cache, no-store');
+  } else {
+    res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  }
   next();
 }
 
@@ -665,12 +672,14 @@ function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[
  */
 function healthCheck(req, res) {
   const baseUrl = `${REST_BASE_URL}${environment.actuators.endpointPath}`;
-  axios.get(baseUrl)
+  fetch(baseUrl)
     .then((response) => {
-      res.status(response.status).send(response.data);
+      return response.json().then((data) => {
+        res.status(response.status).send(data);
+      });
     })
     .catch((error) => {
-      res.status(error.response.status).send({
+      res.status(error?.response?.status || 503).send({
         error: error.message,
       });
     });
