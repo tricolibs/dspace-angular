@@ -50,3 +50,8 @@ info:
 #  host: sandbox.dspace.org
 #  port: 443
 #  nameSpace: /server
+
+community:
+  defaultBrowseTab: comcols
+collection:
+  defaultBrowseTab: browse_dateissued
